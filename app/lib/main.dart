@@ -16,6 +16,7 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(ctx),
       darkTheme: AppTheme.dark(ctx),
+      themeMode: ThemeMode.dark,
       home: const Temp(),
     );
   }
@@ -28,13 +29,30 @@ class Temp extends StatelessWidget {
 
   @override
   Widget build(BuildContext ctx) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text(
-            'Hello World!',
-            style: ctx.text.headlineMedium,
-          ),
+    return Scaffold(
+      backgroundColor: ctx.theme.colorScheme.surface,
+      body: SafeArea(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                //
+                Text(
+                  'Hello, World!'.capitalize(),
+                  style: ctx.text.displaySmall,
+                ),
+
+                const SizedBox(height: 16),
+
+                FilledButton(
+                  onPressed: () {},
+                  child: const Text('Enabled'),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
