@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lmn/common/components/bottom_bar/bottom_bar.dart';
 import 'package:lmn/common/extensions.dart';
 
 class AppLayout extends StatelessWidget {
@@ -13,6 +14,7 @@ class AppLayout extends StatelessWidget {
       body: SafeArea(
         child: child,
       ),
+      bottomNavigationBar: const AppBottomBar(),
     );
   }
 }
