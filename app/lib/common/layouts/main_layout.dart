@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lmn/core/extensions.dart';
+import 'package:lmn/common/extensions.dart';
 
 class AppLayout extends StatelessWidget {
   const AppLayout({super.key, required this.child});

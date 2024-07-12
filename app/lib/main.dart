@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lmn/core/layouts/main_layout.dart';
-import 'package:lmn/core/theme.dart';
+import 'package:lmn/common/layouts/main_layout.dart';
+import 'package:lmn/common/theme.dart';
 import 'package:lmn/features/home/home.dart';
 
 void main() {
