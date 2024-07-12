@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lmn/common/theme.dart';
+import 'package:lmn/common/theme/theme.dart';
 import 'package:lmn/router/router.dart';
 
 void main() {
@@ -19,7 +19,7 @@ class MainApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(context),
       darkTheme: AppTheme.dark(context),
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
       routerConfig: router,
     );
   }
