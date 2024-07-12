@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lmn/common/theme/colors.dart';
+import 'package:lmn/common/theme/constants.dart';
 
 class AppTheme {
   static ThemeData light(BuildContext context) {
@@ -43,7 +43,7 @@ class AppTheme {
       style: ButtonStyle(
         shape: WidgetStateProperty.all(
           const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(6)),
+            borderRadius: BorderRadius.all(Radius.circular(radius)),
           ),
         ),
       ),
