@@ -10,3 +10,27 @@ GoRoute home = GoRoute(
     return const NoTransitionPage(child: Home());
   },
 );
+
+GoRoute matches = GoRoute(
+  name: Routes.matches.name,
+  path: Routes.matches.path,
+  pageBuilder: (BuildContext context, GoRouterState state) {
+    return const NoTransitionPage(child: Home());
+  },
+);
+
+GoRoute conversations = GoRoute(
+  name: Routes.conversations.name,
+  path: Routes.conversations.path,
+  pageBuilder: (BuildContext context, GoRouterState state) {
+    return const NoTransitionPage(child: Home());
+  },
+);
+
+GoRoute placeholder = GoRoute(
+  name: Routes.placeholder.name,
+  path: Routes.placeholder.path,
+  pageBuilder: (BuildContext context, GoRouterState state) {
+    return const NoTransitionPage(child: Home());
+  },
+);
