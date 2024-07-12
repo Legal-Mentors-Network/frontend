@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lmn/common/components/bottom_bar/nav_item.dart';
 import 'package:lmn/common/components/bottom_bar/state.dart';
+import 'package:lmn/common/extensions.dart';
 import 'package:lmn/router/route.dart' as app_route;
 import 'package:lmn/router/routes.dart';
 
@@ -13,15 +14,11 @@ class AppBottomBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final activeRoute = ref.watch(bottomBarState);
 
-    debugPrint("active route: $activeRoute");
-
     ref.listen(bottomBarState, (prev, curr) {
-      debugPrint("prev: $prev, curr: $curr");
       context.go(curr);
     });
 
     void onTap(app_route.Route route) {
-      debugPrint("route: ${route.name} ${route.path}");
       ref.read(bottomBarState.notifier).setRoute(route);
     }
 
@@ -31,7 +28,7 @@ class AppBottomBar extends ConsumerWidget {
         borderRadius: BorderRadius.circular(10),
         child: Container(
           height: 60,
-          color: Colors.green,
+          color: context.colors.primaryContainer,
           child: Row(
             children: [
               NavItem(

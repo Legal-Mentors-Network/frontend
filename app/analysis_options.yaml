@@ -1,8 +1,6 @@
 include: package:lint/analysis_options.yaml
 
 analyzer:
-  errors:
-    use_setters_to_change_properties: ignore
   exclude:
     - "**.freezed.dart"
     - "**.g.dart"
@@ -12,3 +10,4 @@ linter:
     sort_pub_dependencies: false
     avoid_classes_with_only_static_members: false
     use_setters_to_change_properties: false
+    avoid_redundant_argument_values: false
