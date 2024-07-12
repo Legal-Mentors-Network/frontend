@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lmn/features/conversations/conversations.dart';
 import 'package:lmn/features/home/home.dart';
+import 'package:lmn/features/matches/matches.dart';
+import 'package:lmn/features/settings/settings.dart';
 import 'package:lmn/router/routes.dart';
 
 GoRoute home = GoRoute(
@@ -15,7 +18,7 @@ GoRoute matches = GoRoute(
   name: Routes.matches.name,
   path: Routes.matches.path,
   pageBuilder: (BuildContext context, GoRouterState state) {
-    return const NoTransitionPage(child: Home());
+    return const NoTransitionPage(child: Matches());
   },
 );
 
@@ -23,7 +26,7 @@ GoRoute conversations = GoRoute(
   name: Routes.conversations.name,
   path: Routes.conversations.path,
   pageBuilder: (BuildContext context, GoRouterState state) {
-    return const NoTransitionPage(child: Home());
+    return const NoTransitionPage(child: Conversations());
   },
 );
 
@@ -31,6 +34,6 @@ GoRoute placeholder = GoRoute(
   name: Routes.placeholder.name,
   path: Routes.placeholder.path,
   pageBuilder: (BuildContext context, GoRouterState state) {
-    return const NoTransitionPage(child: Home());
+    return const NoTransitionPage(child: Settings());
   },
 );

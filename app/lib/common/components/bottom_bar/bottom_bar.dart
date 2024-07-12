@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lmn/common/components/bottom_bar/nav_item.dart';
 import 'package:lmn/common/components/bottom_bar/state.dart';
 import 'package:lmn/router/route.dart' as app_route;
@@ -13,6 +14,11 @@ class AppBottomBar extends ConsumerWidget {
     final activeRoute = ref.watch(bottomBarState);
 
     debugPrint("active route: $activeRoute");
+
+    ref.listen(bottomBarState, (prev, curr) {
+      debugPrint("prev: $prev, curr: $curr");
+      context.go(curr);
+    });
 
     void onTap(app_route.Route route) {
       debugPrint("route: ${route.name} ${route.path}");
