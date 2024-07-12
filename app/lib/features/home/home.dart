@@ -58,16 +58,19 @@ class Home extends StatelessWidget {
 
             const SizedBox(height: lg),
 
-            Container(
-              decoration: BoxDecoration(
-                color: context.colors.secondaryContainer,
-                borderRadius: BorderRadius.circular(radius),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(lg),
-                child: Text(
-                  "On Secondary Container",
-                  style: context.text.bodyLarge?.copyWith(color: context.colors.onSecondaryContainer),
+            Material(
+              elevation: 5,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: context.colors.secondaryContainer,
+                  borderRadius: BorderRadius.circular(radius),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(lg),
+                  child: Text(
+                    "On Secondary Container",
+                    style: context.text.bodyLarge?.copyWith(color: context.colors.onSecondaryContainer),
+                  ),
                 ),
               ),
             ),

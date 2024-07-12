@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lmn/common/components/bottom_bar/nav_item.dart';
 import 'package:lmn/common/components/bottom_bar/state.dart';
 import 'package:lmn/common/extensions.dart';
+import 'package:lmn/common/theme/constants.dart';
 import 'package:lmn/router/route.dart' as app_route;
 import 'package:lmn/router/routes.dart';
 
@@ -23,12 +24,16 @@ class AppBottomBar extends ConsumerWidget {
     }
 
     return BottomAppBar(
-      elevation: 0.0,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
+      child: Material(
+        elevation: xs,
+        borderRadius: BorderRadius.circular(60.0),
         child: Container(
           height: 60,
-          color: context.colors.primaryContainer,
+          padding: const EdgeInsets.symmetric(horizontal: md),
+          decoration: BoxDecoration(
+            color: context.colors.primaryContainer,
+            borderRadius: BorderRadius.circular(60.0),
+          ),
           child: Row(
             children: [
               NavItem(
