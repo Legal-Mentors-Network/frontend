@@ -24,15 +24,16 @@ class AppBottomBar extends ConsumerWidget {
     }
 
     return BottomAppBar(
+      padding: const EdgeInsets.symmetric(horizontal: lg, vertical: sm),
       child: Material(
         elevation: xs,
-        borderRadius: BorderRadius.circular(60.0),
+        borderRadius: BorderRadius.circular(mx),
         child: Container(
           height: 60,
           padding: const EdgeInsets.symmetric(horizontal: md),
           decoration: BoxDecoration(
             color: context.colors.primaryContainer,
-            borderRadius: BorderRadius.circular(60.0),
+            borderRadius: BorderRadius.circular(mx),
           ),
           child: Row(
             children: [

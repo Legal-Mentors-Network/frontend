@@ -19,6 +19,7 @@ class NavItem extends StatelessWidget {
         onTap: onTap,
         child: Icon(
           icon,
+          size: 27.0,
           color: selected ? Colors.white : Colors.white.withOpacity(0.4),
         ),
       ),
