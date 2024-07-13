@@ -13,7 +13,10 @@ final routerProvider = Provider((ref) {
     routes: [
       ShellRoute(
         navigatorKey: shellNavigatorKey,
-        builder: (context, state, child) => AppLayout(child: child),
+        builder: (context, state, child) => AppLayout(
+          params: state.pathParameters,
+          child: child,
+        ),
         routes: [
           home,
           matches,
