@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lmn/common/components/app_bar/app_bar.dart';
 import 'package:lmn/common/components/bottom_bar/bottom_bar.dart';
 import 'package:lmn/common/extensions.dart';
+import 'package:lmn/common/theme/constants.dart';
 
 class AppLayout extends StatelessWidget {
   const AppLayout({
@@ -17,11 +18,14 @@ class AppLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.colors.surface,
-      body: SafeArea(
-        child: child,
-      ),
       appBar: AppNavigationBar(params: params),
       bottomNavigationBar: const AppBottomBar(),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: md),
+          child: child,
+        ),
+      ),
     );
   }
 }
