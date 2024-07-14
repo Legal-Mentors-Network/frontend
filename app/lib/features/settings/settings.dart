@@ -7,7 +7,7 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text("Settings", style: context.text.displaySmall),
+      child: Text("Settings", style: context.text.titleSmall),
     );
   }
 }

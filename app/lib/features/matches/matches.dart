@@ -7,7 +7,7 @@ class Matches extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text("Matches", style: context.text.displaySmall),
+      child: Text("Matches", style: context.text.titleSmall),
     );
   }
 }
