@@ -3,7 +3,7 @@ class Conversation {
   final String author;
   final String recipient;
 
-  final String latestMessageId;
+  final String latestMessage;
 
   // should come from latest message
   final int? unreadMessages;
@@ -12,7 +12,7 @@ class Conversation {
     required this.id,
     required this.author,
     required this.recipient,
-    required this.latestMessageId,
+    required this.latestMessage,
     this.unreadMessages = 0,
   });
 }
