@@ -30,9 +30,9 @@ GoRoute conversations = GoRoute(
   },
 );
 
-GoRoute placeholder = GoRoute(
-  name: Routes.placeholder.name,
-  path: Routes.placeholder.path,
+GoRoute settings = GoRoute(
+  name: Routes.settings.name,
+  path: Routes.settings.path,
   pageBuilder: (BuildContext context, GoRouterState state) {
     return const NoTransitionPage(child: Settings());
   },

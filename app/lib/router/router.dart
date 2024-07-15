@@ -21,7 +21,7 @@ final routerProvider = Provider((ref) {
           home,
           matches,
           conversations,
-          placeholder,
+          settings,
         ],
       ),
     ],

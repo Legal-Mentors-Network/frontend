@@ -54,8 +54,8 @@ class AppBottomBar extends ConsumerWidget {
               ),
               NavItem(
                 icon: Icons.settings_outlined,
-                onTap: () => onTap(Routes.placeholder),
-                selected: activeRoute == Routes.placeholder.path,
+                onTap: () => onTap(Routes.settings),
+                selected: activeRoute == Routes.settings.path,
               ),
             ],
           ),
