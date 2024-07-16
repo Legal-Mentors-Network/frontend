@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lmn/common/theme/theme.dart';
 import 'package:lmn/router/router.dart';
+import 'package:lmn/state/theme.dart';
 
 void main() {
   runApp(const ProviderScope(child: MainApp()));
@@ -13,13 +14,14 @@ class MainApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
+    final themeMode = ref.watch(themeProvider);
 
     return MaterialApp.router(
       title: 'LMN',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(context),
       darkTheme: AppTheme.dark(context),
-      themeMode: ThemeMode.dark,
+      themeMode: themeMode,
       routerConfig: router,
     );
   }
