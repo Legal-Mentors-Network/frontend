@@ -17,12 +17,20 @@ class AuthNotifier extends AsyncNotifier<AuthUser?> {
 
   @override
   Future<AuthUser?> build() async {
-    final user = await _loadFromCache();
+    debugPrint("building auth...");
+    final record = await _loadFromCache();
     await registerListener();
+
+    if (record == null) {
+      return null;
+    }
+
+    final user = AuthUser.fromNetwork(record);
+    await ref.read(userProvider.notifier).setUser(record);
     return user;
   }
 
-  Future<AuthUser?> _loadFromCache() async {
+  Future<RecordModel?> _loadFromCache() async {
     final db = await ref.read(databaseProvider);
 
     try {
@@ -32,7 +40,7 @@ class AuthNotifier extends AsyncNotifier<AuthUser?> {
       final record = _process(json.decode(item.value) as Map<String, Object?>);
       if (record == null) return null;
 
-      return AuthUser.fromNetwork(record);
+      return record;
     } catch (e) {
       debugPrint("Failed to set current user from cache $e");
     }

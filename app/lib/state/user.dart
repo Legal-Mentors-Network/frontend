@@ -14,6 +14,7 @@ class UserNotifier extends StateNotifier<User?> {
   final Ref ref;
 
   Future<void> setUser(RecordModel? record) async {
+    debugPrint("setting user with record: $record");
     if (record == null) return;
     final onboarding = record.getBoolValue('onboarding');
 
