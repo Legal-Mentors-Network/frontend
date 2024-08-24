@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lmn/common/layouts/main_layout.dart';
+import 'package:lmn/common/layouts/simple_layout.dart';
 import 'package:lmn/features/chat/chat.dart';
 import 'package:lmn/features/conversations/conversations.dart';
 import 'package:lmn/features/home/home.dart';
 import 'package:lmn/features/matches/matches.dart';
+import 'package:lmn/features/profile_setup/profile_intro.dart';
 import 'package:lmn/features/settings/settings.dart';
+import 'package:lmn/features/welcome/welcome.dart';
 import 'package:lmn/router/routes.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -35,6 +38,14 @@ GoRoute conversations = GoRoute(
   },
 );
 
+GoRoute settings = GoRoute(
+  name: Routes.settings.name,
+  path: Routes.settings.path,
+  pageBuilder: (BuildContext context, GoRouterState state) {
+    return const NoTransitionPage(child: Settings());
+  },
+);
+
 GoRoute chat = GoRoute(
   parentNavigatorKey: rootNavigatorKey,
   name: Routes.chat.name,
@@ -51,10 +62,18 @@ GoRoute chat = GoRoute(
   },
 );
 
-GoRoute settings = GoRoute(
-  name: Routes.settings.name,
-  path: Routes.settings.path,
+GoRoute welcome = GoRoute(
+  name: Routes.welcome.name,
+  path: Routes.welcome.path,
   pageBuilder: (BuildContext context, GoRouterState state) {
-    return const NoTransitionPage(child: Settings());
+    return const NoTransitionPage(child: SimpleLayout(child: Welcome()));
+  },
+);
+
+GoRoute profileIntro = GoRoute(
+  name: Routes.profileIntro.name,
+  path: Routes.profileIntro.path,
+  pageBuilder: (BuildContext context, GoRouterState state) {
+    return const NoTransitionPage(child: SimpleLayout(child: ProfileIntro()));
   },
 );

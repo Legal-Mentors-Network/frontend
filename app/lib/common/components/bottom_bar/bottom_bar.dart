@@ -5,7 +5,7 @@ import 'package:lmn/common/components/bottom_bar/nav_item.dart';
 import 'package:lmn/common/components/bottom_bar/state.dart';
 import 'package:lmn/common/extensions.dart';
 import 'package:lmn/common/theme/constants.dart';
-import 'package:lmn/router/route.dart' as app_route;
+import 'package:lmn/models/route.dart' as app_route;
 import 'package:lmn/router/routes.dart';
 
 class AppBottomBar extends ConsumerWidget {
