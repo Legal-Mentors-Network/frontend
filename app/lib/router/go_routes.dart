@@ -9,10 +9,8 @@ import 'package:lmn/features/matches/matches.dart';
 import 'package:lmn/features/profile_setup/profile_intro.dart';
 import 'package:lmn/features/settings/settings.dart';
 import 'package:lmn/features/welcome/welcome.dart';
+import 'package:lmn/models/go_route_partial.dart';
 import 'package:lmn/router/routes.dart';
-
-final rootNavigatorKey = GlobalKey<NavigatorState>();
-final shellNavigatorKey = GlobalKey<NavigatorState>();
 
 GoRoute home = GoRoute(
   name: Routes.home.name,
@@ -46,8 +44,7 @@ GoRoute settings = GoRoute(
   },
 );
 
-GoRoute chat = GoRoute(
-  parentNavigatorKey: rootNavigatorKey,
+GoRoutePartial chat = GoRoutePartial(
   name: Routes.chat.name,
   path: Routes.chat.path,
   pageBuilder: (BuildContext context, GoRouterState state) {
@@ -62,7 +59,7 @@ GoRoute chat = GoRoute(
   },
 );
 
-GoRoute welcome = GoRoute(
+GoRoutePartial welcome = GoRoutePartial(
   name: Routes.welcome.name,
   path: Routes.welcome.path,
   pageBuilder: (BuildContext context, GoRouterState state) {
@@ -70,7 +67,7 @@ GoRoute welcome = GoRoute(
   },
 );
 
-GoRoute profileIntro = GoRoute(
+GoRoutePartial profileIntro = GoRoutePartial(
   name: Routes.profileIntro.name,
   path: Routes.profileIntro.path,
   pageBuilder: (BuildContext context, GoRouterState state) {

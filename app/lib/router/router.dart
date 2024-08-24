@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lmn/common/layouts/main_layout.dart';
+import 'package:lmn/models/go_route_partial.dart';
 import 'package:lmn/router/go_routes.dart';
 import 'package:lmn/router/routes.dart';
 import 'package:lmn/state/auth.dart';
 
 final routerProvider = Provider((ref) {
+  final rootNavigatorKey = GlobalKey<NavigatorState>();
+  final shellNavigatorKey = GlobalKey<NavigatorState>();
+
   return GoRouter(
     navigatorKey: rootNavigatorKey,
     redirect: (context, state) {
@@ -48,9 +52,21 @@ final routerProvider = Provider((ref) {
           settings,
         ],
       ),
-      chat,
-      welcome,
-      profileIntro,
+      assignNavigatorKey(chat, rootNavigatorKey),
+      assignNavigatorKey(welcome, rootNavigatorKey),
+      assignNavigatorKey(profileIntro, rootNavigatorKey),
     ],
   );
 });
+
+GoRoute assignNavigatorKey(
+  GoRoutePartial partial,
+  GlobalKey<NavigatorState>? rootNavigatorKey,
+) {
+  return GoRoute(
+    parentNavigatorKey: rootNavigatorKey,
+    name: partial.name,
+    path: partial.path,
+    pageBuilder: partial.pageBuilder,
+  );
+}

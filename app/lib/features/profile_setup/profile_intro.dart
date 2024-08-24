@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lmn/common/theme/constants.dart';
+import 'package:lmn/state/auth.dart';
 
-class ProfileIntro extends StatelessWidget {
+class ProfileIntro extends ConsumerWidget {
   const ProfileIntro({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
@@ -61,8 +63,10 @@ class ProfileIntro extends StatelessWidget {
 
                     //
                     FilledButton(
-                      child: const Text('Setup your profile'),
-                      onPressed: () {},
+                      child: const Text('Setup your profile (logout)'),
+                      onPressed: () {
+                        ref.read(auth.notifier).logout();
+                      },
                     ),
                   ],
                 ),

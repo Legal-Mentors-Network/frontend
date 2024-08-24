@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lmn/common/theme/constants.dart';
+import 'package:lmn/state/auth.dart';
 
-class Welcome extends StatelessWidget {
+class Welcome extends ConsumerWidget {
   const Welcome({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: xl),
       child: Column(
@@ -45,8 +47,10 @@ class Welcome extends StatelessWidget {
 
                 //
                 FilledButton(
-                  child: const Text('Get Started'),
-                  onPressed: () {},
+                  child: const Text('Get Started (login)'),
+                  onPressed: () {
+                    ref.read(auth.notifier).login("mcorleone@mail.com", "Password123");
+                  },
                 ),
 
                 //
