@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 class Chat extends StatelessWidget {
   const Chat({
     super.key,
-    required this.conversationId,
+    this.conversationId,
   });
 
-  final String conversationId;
+  final String? conversationId;
 
   @override
   Widget build(BuildContext context) {
+    if (conversationId == null) {
+      return const SizedBox.shrink();
+    }
+
     return const Center(
       child: Text('Chat'),
     );

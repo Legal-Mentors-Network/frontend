@@ -10,13 +10,13 @@ class Database {
 
   static Future<void> delete() async {
     return sql.deleteDatabase(
-      join(await sql.getDatabasesPath(), 'lmn_database_1.db'),
+      join(await sql.getDatabasesPath(), 'lmn_database.db'),
     );
   }
 
   static Future<sql.Database> initalise() async {
     return sql.openDatabase(
-      join(await sql.getDatabasesPath(), 'lmn_database_1.db'),
+      join(await sql.getDatabasesPath(), 'lmn_database.db'),
       onCreate: (db, version) async {
         await ConfigTable(db).createTable();
         await UserProfileTable(db).createTable();

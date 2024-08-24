@@ -9,11 +9,11 @@ class Time extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String time = DateFormat('kk:mm').format(
-      DateTime(2023, 01, 24, 10, 10, 10).add(
-        const Duration(seconds: 120),
-      ),
+    final date = DateTime(2023, 01, 24, 10, 10, 10).add(
+      const Duration(seconds: 120),
     );
+
+    final String time = DateFormat('HH:mm').format(date);
 
     return Padding(
       padding: const EdgeInsets.only(top: 7),

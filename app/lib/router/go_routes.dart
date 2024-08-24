@@ -44,7 +44,7 @@ GoRoute chat = GoRoute(
       child: AppLayout(
         params: state.pathParameters,
         child: Chat(
-          conversationId: state.pathParameters["conversationId"]!,
+          conversationId: state.pathParameters["conversationId"],
         ),
       ),
     );

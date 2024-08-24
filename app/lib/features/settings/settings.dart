@@ -13,8 +13,8 @@ class Settings extends ConsumerWidget {
         Option(
           title: 'Dark mode',
           value: ref.watch(themeProvider) == ThemeMode.dark,
-          onChanged: (_) {
-            ref.read(themeProvider.notifier).toggleTheme();
+          onChanged: (value) {
+            ref.read(themeProvider.notifier).setTheme(value ? ThemeMode.dark : ThemeMode.light);
           },
         ),
         const Option(title: 'Notifications'),
