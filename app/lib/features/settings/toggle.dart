@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lmn/common/components/atoms/switch.dart';
+import 'package:lmn/common/components/switch/switch.dart';
 import 'package:lmn/common/extensions.dart';
 import 'package:lmn/common/theme/constants.dart';
 
