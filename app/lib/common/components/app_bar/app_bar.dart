@@ -28,5 +28,6 @@ class AppNavigationBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 String? getRouteTitle(String location) {
-  return protectedRoutes.where((route) => route.path == location).first.title;
+  final route = protectedRoutes.where((route) => route.path == location);
+  return route.isNotEmpty ? route.first.title : null;
 }

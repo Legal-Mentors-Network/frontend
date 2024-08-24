@@ -13,7 +13,7 @@ class ConversationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: lg),
-      onTap: () => context.pushNamed('chat', pathParameters: {"conversationId": "example"}),
+      onTap: () => context.pushNamed('chat', pathParameters: {'conversationId': '123'}),
       leading: const UserImage(),
       title: const Name(),
       subtitle: const MessageText(),
