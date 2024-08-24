@@ -1,35 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lmn/common/controllers/application_controller.dart';
 import 'package:lmn/models/user.dart';
 import 'package:lmn/state/state.dart';
 import 'package:pocketbase/pocketbase.dart';
 
-final userProvider = StateNotifierProvider<UserNotifier, User?>(
-  (ref) => UserNotifier(ref),
-);
+final userProvider = AsyncNotifierProvider<UserNotifier, User?>(UserNotifier.new);
 
-class UserNotifier extends StateNotifier<User?> {
-  UserNotifier(this.ref) : super(null);
-
-  final Ref ref;
+class UserNotifier extends AsyncNotifier<User?> {
+  @override
+  Future<User?> build() async {
+    final record = await ApplicationController(ref).loadFromCache();
+    if (record == null) return null;
+    if (record.getBoolValue('onboarding')) return null;
+    return await _getUser(record);
+  }
 
   Future<void> setUser(RecordModel? record) async {
     debugPrint("setting user with record: $record");
+
     if (record == null) return;
-    final onboarding = record.getBoolValue('onboarding');
+    if (record.getBoolValue('onboarding')) return;
+    state = AsyncValue.data(await _getUser(record));
+  }
 
-    if (onboarding) return;
-
+  Future<User?> _getUser(RecordModel record) async {
     final pb = await ref.read(pocketbase);
 
     try {
       final user = await pb.collection('user').getOne(record.id);
-      state = User.fromNetwork(user);
+      return User.fromNetwork(user);
     } on ClientException catch (e) {
       debugPrint("Failed to fetch user profile ${e.statusCode} ${e.originalError}");
       if (e.statusCode == 404) {
         // TODO: render notification "Failed to fetch your user data. Please contact support if this problem persists";
       }
     }
+
+    return null;
   }
 }

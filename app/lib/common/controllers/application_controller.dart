@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -8,7 +9,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:lmn/common/exceptions/permission_exception.dart';
 import 'package:lmn/data/config_table.dart';
 import 'package:lmn/models/config.dart';
+import 'package:lmn/state/auth.dart';
 import 'package:lmn/state/state.dart';
+import 'package:pocketbase/pocketbase.dart';
 
 class ApplicationController {
   ApplicationController(this.ref);
@@ -77,5 +80,28 @@ class ApplicationController {
 
     if (image == null) return null;
     return File(image.path);
+  }
+
+  // load user from cache
+  Future<RecordModel?> loadFromCache() async {
+    final db = await ref.read(databaseProvider);
+
+    try {
+      final item = await ConfigTable(db).getItem(AuthNotifier.field);
+      if (item == null) return null;
+
+      final record = _process(json.decode(item.value) as Map<String, Object?>);
+      if (record == null) return null;
+
+      return record;
+    } catch (e) {
+      debugPrint("Failed to read current user from cache $e");
+    }
+
+    return null;
+  }
+
+  RecordModel? _process(Map<String, Object?> data) {
+    return switch (data) { {'model': final Map<String, dynamic> model} => RecordModel.fromJson(model), _ => null };
   }
 }

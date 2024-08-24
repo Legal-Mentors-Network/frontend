@@ -1,9 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lmn/common/controllers/application_controller.dart';
 import 'package:lmn/common/utils.dart';
-import 'package:lmn/data/config_table.dart';
 import 'package:lmn/data/user_profile_table.dart';
 import 'package:lmn/models/auth_user.dart';
 import 'package:lmn/state/state.dart';
@@ -17,38 +15,12 @@ class AuthNotifier extends AsyncNotifier<AuthUser?> {
 
   @override
   Future<AuthUser?> build() async {
-    debugPrint("building auth...");
-    final record = await _loadFromCache();
     await registerListener();
 
-    if (record == null) {
-      return null;
-    }
+    final record = await ApplicationController(ref).loadFromCache();
 
-    final user = AuthUser.fromNetwork(record);
-    await ref.read(userProvider.notifier).setUser(record);
-    return user;
-  }
-
-  Future<RecordModel?> _loadFromCache() async {
-    final db = await ref.read(databaseProvider);
-
-    try {
-      final item = await ConfigTable(db).getItem(field);
-      if (item == null) return null;
-
-      final record = _process(json.decode(item.value) as Map<String, Object?>);
-      if (record == null) return null;
-
-      return record;
-    } catch (e) {
-      debugPrint("Failed to set current user from cache $e");
-    }
-    return null;
-  }
-
-  RecordModel? _process(Map<String, Object?> data) {
-    return switch (data) { {'model': final Map<String, dynamic> model} => RecordModel.fromJson(model), _ => null };
+    if (record == null) return null;
+    return AuthUser.fromNetwork(record);
   }
 
   Future<void> setCurrentUser(RecordModel? record) async {

@@ -1,8 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lmn/common/extensions.dart';
 import 'package:lmn/common/theme/constants.dart';
+import 'package:lmn/features/home/avatar.dart';
+import 'package:lmn/models/user.dart';
 import 'package:lmn/state/user.dart';
 
 class Home extends ConsumerWidget {
@@ -10,94 +11,64 @@ class Home extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final textTheme = context.text;
-    final colorScheme = context.colors;
+    final asyncUser = ref.watch(userProvider);
 
-    final user = ref.watch(userProvider);
-
-    debugPrint("user: $user");
-
-    if (user == null) return const SizedBox.shrink();
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        //
-        Row(
-          textDirection: TextDirection.rtl,
-          children: [
-            //
-            Avatar(image: user.image),
-
-            const Spacer(),
-
-            IconButton(
-              onPressed: () => Scaffold.of(context).openDrawer(),
-              icon: const Icon(Icons.menu),
-              iconSize: 34,
-            ),
-          ],
-        ),
-
-        const SizedBox(height: xl),
-
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: md),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Welcome back,', style: textTheme.titleLarge?.copyWith(color: colorScheme.secondary)),
-              Text(
-                user.name,
-                style: textTheme.displaySmall?.copyWith(fontWeight: FontWeight.w900, color: colorScheme.primary),
-              ),
-            ],
-          ),
-        ),
-      ],
+    return asyncUser.when(
+      data: (data) => data != null ? Success(user: data) : const SizedBox.shrink(),
+      error: (error, stackTrace) => const Text("error"),
+      loading: () => const Text("loading..."),
     );
   }
 }
 
-class Avatar extends StatelessWidget {
-  const Avatar({
-    super.key,
-    required this.image,
-  });
+class Success extends StatelessWidget {
+  const Success({super.key, required this.user});
 
-  final String image;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
-    if (image.isEmpty) return const SizedBox.shrink();
+    return Padding(
+      padding: const EdgeInsets.all(md),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          //
+          Row(
+            textDirection: TextDirection.rtl,
+            children: [
+              //
+              Avatar(image: user.image),
 
-    return Stack(
-      children: [
-        ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(md)),
-          child: CachedNetworkImage(
-            imageUrl: image,
-            height: 60,
-            width: 60,
-            fit: BoxFit.cover,
-          ),
-        ),
+              const Spacer(),
 
-        //
-        Positioned.fill(
-          child: ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(md)),
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: () {
-                  debugPrint('go to profile');
+              IconButton(
+                onPressed: () => {
+                  debugPrint("clicked"),
                 },
+                icon: const Icon(Icons.menu),
+                iconSize: 34,
               ),
+            ],
+          ),
+
+          const SizedBox(height: xl),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: md),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Welcome back,', style: context.text.titleLarge?.copyWith(color: context.colors.secondary)),
+                Text(
+                  user.name,
+                  style: context.text.displaySmall?.copyWith(fontWeight: FontWeight.w900, color: context.colors.primary),
+                ),
+              ],
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
