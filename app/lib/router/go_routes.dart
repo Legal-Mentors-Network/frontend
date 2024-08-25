@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lmn/common/layouts/main_layout.dart';
@@ -48,11 +50,18 @@ GoRoutePartial chat = GoRoutePartial(
   name: Routes.chat.name,
   path: Routes.chat.path,
   pageBuilder: (BuildContext context, GoRouterState state) {
+    final conversationId = state.pathParameters["conversationId"];
+
+    if (conversationId == null) {
+      log("Attempting to access route chat without conversationId");
+      throw Exception("conversationId is required");
+    }
+
     return NoTransitionPage(
       child: AppLayout(
         params: state.pathParameters,
         child: Chat(
-          conversationId: state.pathParameters["conversationId"],
+          conversationId: conversationId,
         ),
       ),
     );
