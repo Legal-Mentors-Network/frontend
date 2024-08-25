@@ -18,22 +18,12 @@ class ConversationNotifier extends AsyncNotifier<List<Conversation>> {
     if (user == null) return [];
 
     try {
-      debugPrint("about to fetdh");
       final filter = 'author = "${user.id}" || recipient = "${user.id}"';
-      final conversations = await pb.collection('conversations').getList(page: 1, perPage: 30, filter: filter);
+      final conversations = await pb.collection('conversations_list').getList(page: 1, perPage: 30, expand: 'latestMessage');
 
-      debugPrint("after fetch ${conversations.items.length}");
+      debugPrint("repsonse ${conversations.toJson()}");
 
-      final items = conversations.items.map((conversation) {
-        debugPrint("conversation ${conversation.id}");
-        final x = Conversation.fromNetwork(conversation);
-        debugPrint("x ${x.author} ${x.id} ${x.latestMessage} ${x.recipient} ${x.unreadMessages}");
-        return x;
-      }).toList();
-
-      debugPrint("items ${items.length}");
-
-      return items;
+      return conversations.items.map((conversation) => Conversation.fromNetwork(conversation)).toList();
     } on ClientException catch (e) {
       debugPrint("Failed to fetch conversations ${e.statusCode} ${e.originalError}");
     }
