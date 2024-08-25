@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lmn/common/components/app_bar/app_bar.dart';
 import 'package:lmn/common/components/bottom_bar/bottom_bar.dart';
 import 'package:lmn/common/extensions.dart';
@@ -16,9 +17,11 @@ class AppLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final location = GoRouterState.of(context).uri.toString();
+
     return Scaffold(
       backgroundColor: context.colors.surface,
-      appBar: AppNavigationBar(params: params),
+      appBar: location != '/' ? AppNavigationBar(params: params) : null,
       bottomNavigationBar: const AppBottomBar(),
       body: SafeArea(
         child: Padding(

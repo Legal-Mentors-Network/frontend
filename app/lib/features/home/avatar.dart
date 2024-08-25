@@ -20,8 +20,8 @@ class Avatar extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(md)),
           child: CachedNetworkImage(
             imageUrl: image,
-            height: 60,
-            width: 60,
+            height: 80,
+            width: 80,
             fit: BoxFit.cover,
           ),
         ),
