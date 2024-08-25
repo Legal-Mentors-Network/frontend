@@ -14,15 +14,18 @@ class Home extends ConsumerWidget {
     final asyncUser = ref.watch(userProvider);
 
     return asyncUser.when(
-      data: (data) => data != null ? Success(user: data) : const SizedBox.shrink(),
+      data: (data) {
+        if (data == null) return const SizedBox.shrink();
+        return HomeView(user: data);
+      },
       error: (error, stackTrace) => const Text("error"),
       loading: () => const Text("loading..."),
     );
   }
 }
 
-class Success extends StatelessWidget {
-  const Success({super.key, required this.user});
+class HomeView extends StatelessWidget {
+  const HomeView({super.key, required this.user});
 
   final User user;
 
