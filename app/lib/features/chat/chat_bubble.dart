@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lmn/common/extensions.dart';
 import 'package:lmn/models/message.dart';
+import 'package:lmn/state/theme.dart';
 import 'package:lmn/state/user.dart';
 
 class ChatBubble extends ConsumerWidget {
@@ -25,7 +26,7 @@ class ChatBubble extends ConsumerWidget {
   }
 }
 
-class RecipientBubble extends StatelessWidget {
+class RecipientBubble extends ConsumerWidget {
   const RecipientBubble({
     super.key,
     required this.message,
@@ -34,7 +35,10 @@ class RecipientBubble extends StatelessWidget {
   final Message message;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = ref.watch(themeProvider);
+    final color = theme == ThemeMode.dark ? const Color(0xFF45464F) : const Color(0xFFECEBF5);
+
     return Row(
       children: [
         Flexible(
@@ -42,7 +46,7 @@ class RecipientBubble extends StatelessWidget {
           child: Card(
             margin: const EdgeInsets.symmetric(vertical: 0.5),
             elevation: 0,
-            color: const Color(0xFFECEBF5),
+            color: color,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               child: Text(
