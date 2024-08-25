@@ -1,3 +1,5 @@
+import 'package:pocketbase/pocketbase.dart';
+
 class Conversation {
   final String id;
   final String author;
@@ -15,4 +17,14 @@ class Conversation {
     required this.latestMessage,
     this.unreadMessages = 0,
   });
+
+  factory Conversation.fromNetwork(RecordModel record) {
+    return Conversation(
+      id: record.id,
+      author: record.getStringValue('author'),
+      recipient: record.getStringValue('recipient'),
+      latestMessage: record.getStringValue('latestMessage'),
+      unreadMessages: record.getIntValue('unreadMessages'),
+    );
+  }
 }

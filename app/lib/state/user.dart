@@ -8,6 +8,8 @@ import 'package:pocketbase/pocketbase.dart';
 final userProvider = AsyncNotifierProvider<UserNotifier, User?>(UserNotifier.new);
 
 class UserNotifier extends AsyncNotifier<User?> {
+  User? get user => state.value;
+
   @override
   Future<User?> build() async {
     final record = await ApplicationController(ref).loadFromCache();

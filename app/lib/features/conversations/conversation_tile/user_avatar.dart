@@ -14,6 +14,7 @@ class UserImage extends StatelessWidget {
       backgroundColor: context.colors.primary,
       isLabelVisible: true,
       child: CircleAvatar(
+        // backgroundColor: AssetImage('assets/images/${user.image}'),
         backgroundColor: context.colors.primary,
         radius: 24,
       ),

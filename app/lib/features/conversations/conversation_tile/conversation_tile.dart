@@ -6,9 +6,15 @@ import 'package:lmn/features/conversations/conversation_tile/message_text.dart';
 import 'package:lmn/features/conversations/conversation_tile/name.dart';
 import 'package:lmn/features/conversations/conversation_tile/time.dart';
 import 'package:lmn/features/conversations/conversation_tile/user_avatar.dart';
+import 'package:lmn/models/conversation.dart';
 
 class ConversationTile extends StatelessWidget {
-  const ConversationTile({super.key});
+  const ConversationTile({
+    super.key,
+    required this.conversation,
+  });
+
+  final Conversation conversation;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +25,7 @@ class ConversationTile extends StatelessWidget {
       ),
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: lg),
-        onTap: () => context.pushNamed('chat', pathParameters: {'conversationId': '123'}),
+        onTap: () => context.pushNamed('chat', pathParameters: {'conversationId': conversation.id}),
         leading: const UserImage(),
         title: const Name(),
         subtitle: const MessageText(),
