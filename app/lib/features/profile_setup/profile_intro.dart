@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lmn/common/extensions.dart';
 import 'package:lmn/common/theme/constants.dart';
 import 'package:lmn/state/auth.dart';
 
@@ -9,7 +10,7 @@ class ProfileIntro extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: context.colors.surface,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(rl),
@@ -34,7 +35,7 @@ class ProfileIntro extends ConsumerWidget {
                   children: [
                     Text(
                       'Hello Barry',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
+                      style: context.text.titleLarge?.copyWith(fontWeight: FontWeight.w700),
                     ),
 
                     const SizedBox(height: lg),
@@ -49,7 +50,7 @@ class ProfileIntro extends ConsumerWidget {
                           return ListTile(
                             leading: Icon(
                               item.icon,
-                              color: Theme.of(context).colorScheme.secondary,
+                              color: context.colors.secondary,
                               size: xl,
                             ),
                             title: Text(item.title),

@@ -12,7 +12,6 @@ class MessageNotifier extends FamilyAsyncNotifier<List<Message>, String> {
 
   @override
   Future<List<Message>> build(String conversationId) async {
-    log("convo id $conversationId");
     final pb = await ref.read(pocketbase);
 
     try {

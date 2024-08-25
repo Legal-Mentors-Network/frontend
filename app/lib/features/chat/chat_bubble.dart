@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lmn/common/extensions.dart';
 import 'package:lmn/models/message.dart';
 import 'package:lmn/state/user.dart';
 
@@ -46,7 +47,7 @@ class RecipientBubble extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               child: Text(
                 message.message,
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: context.text.bodyMedium,
               ),
             ),
           ),
@@ -76,12 +77,12 @@ class UserBubble extends StatelessWidget {
           child: Card(
             margin: const EdgeInsets.symmetric(vertical: 0.5),
             elevation: 0,
-            color: Theme.of(context).colorScheme.primary,
+            color: context.colors.primary,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               child: Text(
                 message.message,
-                style: Theme.of(context).textTheme.bodyMedium?.apply(color: Theme.of(context).colorScheme.onPrimary),
+                style: context.text.bodyMedium?.apply(color: context.colors.onPrimary),
               ),
             ),
           ),

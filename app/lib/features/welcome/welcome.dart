@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lmn/common/extensions.dart';
 import 'package:lmn/common/theme/constants.dart';
 import 'package:lmn/state/auth.dart';
 
@@ -30,7 +31,7 @@ class Welcome extends ConsumerWidget {
               children: [
                 Text(
                   'Welcome',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
+                  style: context.text.titleLarge?.copyWith(fontWeight: FontWeight.w700),
                 ),
 
                 //
