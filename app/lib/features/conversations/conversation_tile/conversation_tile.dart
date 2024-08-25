@@ -18,6 +18,9 @@ class ConversationTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final recipient = conversation.recipient;
+    final latestMessage = conversation.latestMessage;
+
     return Slidable(
       endActionPane: const ActionPane(
         motion: DrawerMotion(),
@@ -26,10 +29,10 @@ class ConversationTile extends StatelessWidget {
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: lg),
         onTap: () => context.pushNamed('chat', pathParameters: {'conversationId': conversation.id}),
-        leading: UserImage(image: conversation.recipient.image),
-        title: Name(name: conversation.recipient.name),
-        subtitle: MessageText(message: conversation.latestMessage.message),
-        trailing: Time(time: conversation.latestMessage.createdAt),
+        leading: Avatar(image: recipient.image, unreadMessages: conversation.unreadMessages),
+        title: Name(name: recipient.name),
+        subtitle: MessageText(message: latestMessage.message),
+        trailing: Time(time: latestMessage.createdAt),
       ),
     );
   }
