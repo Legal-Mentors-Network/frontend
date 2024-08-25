@@ -26,9 +26,7 @@ final routerProvider = Provider((ref) {
       // temporarily redirecting to profile intro, but should go to last profile screen worked on/ the next screen
       // after that - store current onboarding route in local database
       final onboarding = authenticatedUser.value?.onboarding ?? false;
-      debugPrint("onboarding $onboarding");
       final bool isOnboarding = authenticatedUser.value != null && onboarding && !contains(onboardingRoutes, location);
-      debugPrint("isOnboarding $isOnboarding");
 
       if (authenticatedUser.value == null && !contains(routes, location)) {
         return Routes.welcome.path;

@@ -16,7 +16,6 @@ class Conversations extends ConsumerWidget {
 
     return conversations.when(
       data: (data) {
-        debugPrint("data ${data.length}");
         if (data.isEmpty) return const SizedBox.shrink();
         return ConversationsView(conversations: data);
       },

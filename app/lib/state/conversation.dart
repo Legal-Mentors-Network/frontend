@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lmn/models/conversation.dart';
@@ -23,9 +21,6 @@ class ConversationNotifier extends AsyncNotifier<List<Conversation>> {
       final filter = 'author = "${user.id}" || recipient = "${user.id}"';
       const expand = 'authorProfile,recipientProfile,latestMessage';
       final conversations = await pb.collection('conversations_list').getList(page: 1, perPage: 30, filter: filter, expand: expand);
-
-      log("repsonse ${conversations.toJson()}");
-
       return conversations.items.map((conversation) => Conversation.fromNetwork(conversation)).toList();
     } on ClientException catch (e) {
       debugPrint("Failed to fetch conversations ${e.statusCode} ${e.originalError}");
