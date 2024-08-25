@@ -8,7 +8,7 @@ import 'package:pocketbase/pocketbase.dart';
 final conversationProvider = AsyncNotifierProvider<ConversationNotifier, List<Conversation>>(ConversationNotifier.new);
 
 class ConversationNotifier extends AsyncNotifier<List<Conversation>> {
-  List<Conversation>? get conversations => state.value;
+  List<Conversation> get conversations => state.value ?? [];
 
   @override
   Future<List<Conversation>> build() async {

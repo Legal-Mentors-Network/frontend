@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lmn/common/layouts/main_layout.dart';
+import 'package:lmn/common/layouts/chat_layout.dart';
 import 'package:lmn/common/layouts/simple_layout.dart';
 import 'package:lmn/features/chat/chat.dart';
 import 'package:lmn/features/conversations/conversations.dart';
@@ -58,8 +58,8 @@ GoRoutePartial chat = GoRoutePartial(
     }
 
     return NoTransitionPage(
-      child: AppLayout(
-        params: state.pathParameters,
+      child: ChatLayout(
+        conversationId: conversationId,
         child: Chat(
           conversationId: conversationId,
         ),
