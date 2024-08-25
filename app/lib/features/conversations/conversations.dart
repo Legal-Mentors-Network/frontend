@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lmn/common/theme/constants.dart';
@@ -18,7 +20,10 @@ class Conversations extends ConsumerWidget {
         if (data.isEmpty) return const SizedBox.shrink();
         return ConversationsView(conversations: data);
       },
-      error: (error, stackTrace) => const Text("Error"),
+      error: (error, stackTrace) {
+        log(error.toString(), stackTrace: stackTrace);
+        return const Text("Error");
+      },
       loading: () => const Text("Loading..."),
     );
   }
