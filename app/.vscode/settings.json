@@ -1,0 +1,14 @@
+{
+  "files.exclude": {
+    "*.lock": true,
+    "analysis_options.yaml": true,
+    "**/web": true,
+    "**/windows": true,
+    "**/macos": true,
+    "**/linux": true,
+    "**/ios": true,
+    "**/android": true,
+    "**/build": true,
+    "README.md": true
+  }
+}
