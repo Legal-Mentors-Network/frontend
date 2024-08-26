@@ -56,8 +56,7 @@ class RecipientBubble extends ConsumerWidget {
                 children: [
                   Text(
                     recipient.name,
-                    // color #fd7590
-                    style: context.text.bodyMedium?.copyWith(
+                    style: context.text.bodySmall?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: textColor,
                     ),
@@ -65,7 +64,7 @@ class RecipientBubble extends ConsumerWidget {
                   const SizedBox(height: xs),
                   Text(
                     message.message,
-                    style: context.text.titleMedium,
+                    style: context.text.titleSmall,
                   ),
                 ],
               ),
@@ -105,7 +104,7 @@ class UserBubble extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: lg, vertical: lg),
               child: Text(
                 message.message,
-                style: context.text.titleMedium?.apply(color: context.colors.onPrimary),
+                style: context.text.titleSmall?.apply(color: context.colors.onPrimary),
               ),
             ),
           ),

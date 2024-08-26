@@ -51,7 +51,7 @@ class MessagesView extends ConsumerWidget {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(milliseconds: 500)).then((value) {
         listViewController.animateTo(
-          listViewController.position.maxScrollExtent,
+          listViewController.position.maxScrollExtent * 2,
           duration: const Duration(milliseconds: 200),
           curve: Curves.fastOutSlowIn,
         );
