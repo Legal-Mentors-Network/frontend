@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as chat_ui_types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart' as chat_ui;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lmn/common/extensions.dart';
+import 'package:lmn/common/theme/constants.dart';
 import 'package:lmn/features/chat/state.dart';
 import 'package:lmn/models/message.dart';
 import 'package:lmn/state/message.dart';
@@ -50,8 +52,21 @@ class MessagesView extends ConsumerWidget {
 
     return chat_ui.Chat(
       messages: messages,
+      showUserNames: true,
       onSendPressed: (PartialText) {},
       user: user,
+      theme: chat_ui.DefaultChatTheme(
+        backgroundColor: context.colors.surface,
+        inputMargin: const EdgeInsets.symmetric(horizontal: md),
+        inputContainerDecoration: BoxDecoration(
+          color: context.colors.primaryContainer,
+          borderRadius: const BorderRadius.all(Radius.circular(mx)),
+        ),
+      ),
+      inputOptions: const chat_ui.InputOptions(
+        usesSafeArea: false,
+        sendButtonVisibilityMode: chat_ui.SendButtonVisibilityMode.always,
+      ),
     );
   }
 }
