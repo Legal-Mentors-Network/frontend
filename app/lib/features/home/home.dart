@@ -4,6 +4,7 @@ import 'package:lmn/common/extensions.dart';
 import 'package:lmn/common/theme/constants.dart';
 import 'package:lmn/features/home/avatar.dart';
 import 'package:lmn/models/user.dart';
+import 'package:lmn/state/auth.dart';
 import 'package:lmn/state/user.dart';
 
 class Home extends ConsumerWidget {
@@ -24,13 +25,13 @@ class Home extends ConsumerWidget {
   }
 }
 
-class HomeView extends StatelessWidget {
+class HomeView extends ConsumerWidget {
   const HomeView({super.key, required this.user});
 
   final User user;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.only(left: md, right: md, top: sm),
       child: Column(
@@ -48,6 +49,7 @@ class HomeView extends StatelessWidget {
               IconButton(
                 onPressed: () => {
                   debugPrint("clicked"),
+                  ref.read(auth.notifier).logout(),
                 },
                 icon: const Icon(Icons.menu),
                 iconSize: 34,

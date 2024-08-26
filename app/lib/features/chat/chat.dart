@@ -64,7 +64,6 @@ class MessagesView extends ConsumerWidget {
         ),
       ),
       inputOptions: const chat_ui.InputOptions(
-        usesSafeArea: false,
         sendButtonVisibilityMode: chat_ui.SendButtonVisibilityMode.always,
       ),
     );
