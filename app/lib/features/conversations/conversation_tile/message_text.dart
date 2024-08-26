@@ -4,12 +4,15 @@ import 'package:lmn/common/extensions.dart';
 class MessageText extends StatelessWidget {
   const MessageText({
     super.key,
+    required this.message,
   });
+
+  final String message;
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      "Say hello to my little friend",
+      message,
       style: context.text.bodySmall,
       maxLines: 1,
       overflow: TextOverflow.ellipsis,

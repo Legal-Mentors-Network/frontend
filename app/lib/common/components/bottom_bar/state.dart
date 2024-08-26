@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lmn/router/route.dart';
+import 'package:lmn/models/route.dart';
 import 'package:lmn/router/routes.dart';
 
 class BottomBarNotifier extends Notifier<String> {

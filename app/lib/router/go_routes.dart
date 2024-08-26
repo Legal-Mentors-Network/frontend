@@ -1,15 +1,18 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lmn/common/layouts/main_layout.dart';
+import 'package:lmn/common/layouts/chat_layout.dart';
+import 'package:lmn/common/layouts/simple_layout.dart';
 import 'package:lmn/features/chat/chat.dart';
 import 'package:lmn/features/conversations/conversations.dart';
 import 'package:lmn/features/home/home.dart';
 import 'package:lmn/features/matches/matches.dart';
+import 'package:lmn/features/profile_setup/profile_intro.dart';
 import 'package:lmn/features/settings/settings.dart';
+import 'package:lmn/features/welcome/welcome.dart';
+import 'package:lmn/models/go_route_partial.dart';
 import 'package:lmn/router/routes.dart';
-
-final rootNavigatorKey = GlobalKey<NavigatorState>();
-final shellNavigatorKey = GlobalKey<NavigatorState>();
 
 GoRoute home = GoRoute(
   name: Routes.home.name,
@@ -35,26 +38,48 @@ GoRoute conversations = GoRoute(
   },
 );
 
-GoRoute chat = GoRoute(
-  parentNavigatorKey: rootNavigatorKey,
+GoRoute settings = GoRoute(
+  name: Routes.settings.name,
+  path: Routes.settings.path,
+  pageBuilder: (BuildContext context, GoRouterState state) {
+    return const NoTransitionPage(child: Settings());
+  },
+);
+
+GoRoutePartial chat = GoRoutePartial(
   name: Routes.chat.name,
   path: Routes.chat.path,
   pageBuilder: (BuildContext context, GoRouterState state) {
+    final conversationId = state.pathParameters["conversationId"];
+
+    if (conversationId == null) {
+      log("Attempting to access route chat without conversationId");
+      throw Exception("conversationId is required");
+    }
+
     return NoTransitionPage(
-      child: AppLayout(
-        params: state.pathParameters,
+      child: ChatLayout(
+        conversationId: conversationId,
         child: Chat(
-          conversationId: state.pathParameters["conversationId"]!,
+          conversationId: conversationId,
         ),
       ),
     );
   },
 );
 
-GoRoute settings = GoRoute(
-  name: Routes.settings.name,
-  path: Routes.settings.path,
+GoRoutePartial welcome = GoRoutePartial(
+  name: Routes.welcome.name,
+  path: Routes.welcome.path,
   pageBuilder: (BuildContext context, GoRouterState state) {
-    return const NoTransitionPage(child: Settings());
+    return const NoTransitionPage(child: SimpleLayout(child: Welcome()));
+  },
+);
+
+GoRoutePartial profileIntro = GoRoutePartial(
+  name: Routes.profileIntro.name,
+  path: Routes.profileIntro.path,
+  pageBuilder: (BuildContext context, GoRouterState state) {
+    return const NoTransitionPage(child: SimpleLayout(child: ProfileIntro()));
   },
 );
