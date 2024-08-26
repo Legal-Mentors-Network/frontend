@@ -3,26 +3,22 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lmn/common/extensions.dart';
+import 'package:lmn/common/theme/constants.dart';
 import 'package:lmn/models/message.dart';
+import 'package:lmn/models/user.dart';
 import 'package:lmn/state/theme.dart';
-import 'package:lmn/state/user.dart';
 
 class ChatBubble extends ConsumerWidget {
-  final Message message;
+  const ChatBubble({super.key, required this.message, required this.author, required this.recipient});
 
-  const ChatBubble({super.key, required this.message});
+  final Message message;
+  final User author;
+  final User recipient;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.read(userProvider.notifier).user;
-
-    if (user == null) {
-      log("user is empty");
-      throw Exception("User is empty when rendering chat bubble");
-    }
-
     inspect(message);
-    return message.author == user.id ? UserBubble(message: message) : RecipientBubble(message: message);
+    return message.author == author.id ? UserBubble(message: message) : RecipientBubble(message: message, recipient: recipient);
   }
 }
 
@@ -30,28 +26,48 @@ class RecipientBubble extends ConsumerWidget {
   const RecipientBubble({
     super.key,
     required this.message,
+    required this.recipient,
   });
 
   final Message message;
+  final User recipient;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(themeProvider);
-    final color = theme == ThemeMode.dark ? const Color(0xFF45464F) : const Color(0xFFECEBF5);
+    final color = theme == ThemeMode.dark ? const Color.fromARGB(255, 43, 43, 45) : const Color(0xFFf5f5f7);
+    final textColor = theme == ThemeMode.dark ? context.colors.secondary : const Color(0xFFfd7590);
 
     return Row(
       children: [
         Flexible(
           flex: 4,
           child: Card(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(rl)),
+            ),
             margin: const EdgeInsets.symmetric(vertical: 0.5),
             elevation: 0,
             color: color,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-              child: Text(
-                message.message,
-                style: context.text.bodyMedium,
+              padding: const EdgeInsets.symmetric(horizontal: lg, vertical: lg),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    recipient.name,
+                    // color #fd7590
+                    style: context.text.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: textColor,
+                    ),
+                  ),
+                  const SizedBox(height: xs),
+                  Text(
+                    message.message,
+                    style: context.text.titleMedium,
+                  ),
+                ],
               ),
             ),
           ),
@@ -79,14 +95,17 @@ class UserBubble extends StatelessWidget {
         Flexible(
           flex: 4,
           child: Card(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(rl)),
+            ),
             margin: const EdgeInsets.symmetric(vertical: 0.5),
             elevation: 0,
-            color: context.colors.primary,
+            color: const Color(0xFF4F3EEE),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: lg, vertical: lg),
               child: Text(
                 message.message,
-                style: context.text.bodyMedium?.apply(color: context.colors.onPrimary),
+                style: context.text.titleMedium?.apply(color: context.colors.onPrimary),
               ),
             ),
           ),

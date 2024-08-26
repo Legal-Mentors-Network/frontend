@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lmn/common/components/chat_app_bar/chat_app_bar.dart';
 import 'package:lmn/common/extensions.dart';
 import 'package:lmn/common/theme/constants.dart';
-import 'package:lmn/models/user.dart';
 import 'package:lmn/state/conversation.dart';
 import 'package:lmn/state/user.dart';
 
@@ -19,7 +18,9 @@ class ChatLayout extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final conversations = ref.watch(conversationProvider.notifier).conversations;
+    final notifier = ref.watch(conversationProvider.notifier);
+    final conversations = notifier.conversations;
+
     final user = ref.read(userProvider.notifier).user;
 
     if (conversations.isEmpty || user == null) {
@@ -34,10 +35,7 @@ class ChatLayout extends ConsumerWidget {
       return const SizedBox.shrink();
     }
 
-    User recipient = conversation.recipient;
-    if (conversation.recipient.id == user.id) {
-      recipient = conversation.author;
-    }
+    final recipient = notifier.getConversationRecipient(conversation, user);
 
     return Scaffold(
       appBar: ChatAppBar(recipient: recipient),
