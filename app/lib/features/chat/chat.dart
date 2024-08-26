@@ -1,9 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as chat_ui_types;
+import 'package:flutter_chat_ui/flutter_chat_ui.dart' as chat_ui;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lmn/common/theme/constants.dart';
-import 'package:lmn/features/chat/chat_bubble.dart';
+import 'package:lmn/features/chat/state.dart';
 import 'package:lmn/models/message.dart';
 import 'package:lmn/state/message.dart';
 
@@ -33,22 +34,24 @@ class Chat extends ConsumerWidget {
   }
 }
 
-class MessagesView extends StatelessWidget {
+class MessagesView extends ConsumerWidget {
   const MessagesView({super.key, required this.messages});
 
   final List<Message> messages;
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(md),
-      child: ListView.separated(
-        itemBuilder: (context, index) {
-          return ChatBubble(message: messages[index]);
-        },
-        separatorBuilder: (context, index) => const SizedBox(height: sm),
-        itemCount: messages.length,
-      ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(chatProvider.notifier).loadMessages();
+    final messages = ref.watch(chatProvider);
+
+    const user = chat_ui_types.User(
+      id: '82091008-a484-4a89-ae75-a22bf8d6f3ac',
+    );
+
+    return chat_ui.Chat(
+      messages: messages,
+      onSendPressed: (PartialText) {},
+      user: user,
     );
   }
 }
