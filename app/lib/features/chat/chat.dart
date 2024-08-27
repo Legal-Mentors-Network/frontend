@@ -72,7 +72,12 @@ class MessagesView extends ConsumerWidget {
       child: ListView.separated(
         controller: listViewController,
         itemBuilder: (context, index) {
-          return ChatBubble(message: messages[index], author: user, recipient: recipient);
+          return ChatBubble(
+            message: messages[index],
+            author: user,
+            recipient: recipient,
+            showRecipientName: false,
+          );
         },
         separatorBuilder: (context, index) => const SizedBox(height: sm),
         itemCount: messages.length,

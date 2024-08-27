@@ -25,5 +25,6 @@ final pocketbase = Provider((ref) async {
   // use http://10.0.2.2:8090 for android
   // use htpp://127.0.0.1:8090 for ios
   // use https://lmn.pockethost.io for real device
+  // return PocketBase('https://lmn.pockethost.io', authStore: store);
   return PocketBase('http://localhost:8090', authStore: store);
 });

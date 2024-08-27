@@ -9,16 +9,32 @@ import 'package:lmn/models/user.dart';
 import 'package:lmn/state/theme.dart';
 
 class ChatBubble extends ConsumerWidget {
-  const ChatBubble({super.key, required this.message, required this.author, required this.recipient});
+  const ChatBubble({
+    super.key,
+    required this.message,
+    required this.author,
+    required this.recipient,
+    this.showRecipientName = false,
+  });
 
   final Message message;
   final User author;
   final User recipient;
+  final bool showRecipientName;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     inspect(message);
-    return message.author == author.id ? UserBubble(message: message) : RecipientBubble(message: message, recipient: recipient);
+
+    if (message.author == author.id) {
+      return UserBubble(message: message);
+    }
+
+    return RecipientBubble(
+      message: message,
+      recipient: recipient,
+      showRecipientName: showRecipientName,
+    );
   }
 }
 
@@ -27,10 +43,12 @@ class RecipientBubble extends ConsumerWidget {
     super.key,
     required this.message,
     required this.recipient,
+    this.showRecipientName = false,
   });
 
   final Message message;
   final User recipient;
+  final bool showRecipientName;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -54,14 +72,7 @@ class RecipientBubble extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    recipient.name,
-                    style: context.text.bodySmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: textColor,
-                    ),
-                  ),
-                  const SizedBox(height: xs),
+                  if (showRecipientName) RecipientName(recipient: recipient, textColor: textColor),
                   Text(
                     message.message,
                     style: context.text.titleSmall,
@@ -72,6 +83,33 @@ class RecipientBubble extends ConsumerWidget {
           ),
         ),
         const Spacer(),
+      ],
+    );
+  }
+}
+
+class RecipientName extends StatelessWidget {
+  const RecipientName({
+    super.key,
+    required this.recipient,
+    required this.textColor,
+  });
+
+  final User recipient;
+  final Color textColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          recipient.name,
+          style: context.text.bodySmall?.copyWith(
+            fontWeight: FontWeight.bold,
+            color: textColor,
+          ),
+        ),
+        const SizedBox(height: xs),
       ],
     );
   }
