@@ -25,6 +25,7 @@ dependencies:
   flutter_slidable: ^3.1.1
   flutter_chat_ui: ^1.6.15
   flutter_chat_types: ^3.6.2
+  skeletonizer: ^1.4.2
 
 dev_dependencies:
   custom_lint: ^0.6.4

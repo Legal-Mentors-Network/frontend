@@ -5,7 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lmn/common/theme/constants.dart';
 import 'package:lmn/features/conversations/conversation_tile/conversation_tile.dart';
 import 'package:lmn/models/conversation.dart';
+import 'package:lmn/models/message.dart';
+import 'package:lmn/models/user.dart';
 import 'package:lmn/state/conversation.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class Conversations extends ConsumerWidget {
   const Conversations({super.key});
@@ -23,7 +26,37 @@ class Conversations extends ConsumerWidget {
         log(error.toString(), stackTrace: stackTrace);
         return const Text("Error");
       },
-      loading: () => const Text("Loading..."),
+      loading: () {
+        final user = User(
+          id: "1",
+          profileId: "1",
+          email: "example@mail.com",
+          name: BoneMock.words(2),
+          age: 24,
+          location: "London",
+          image: "asdadadada",
+          onboarding: true,
+        );
+
+        final message = Message(
+          id: "1",
+          conversation: "1",
+          author: "1",
+          message: BoneMock.words(6),
+          createdAt: DateTime.now(),
+        );
+
+        final conversation = Conversation(
+          id: "1",
+          author: user,
+          recipient: user,
+          latestMessage: message,
+          unreadMessages: 0,
+        );
+
+        final conversations = List.filled(3, conversation);
+        return Skeletonizer(child: ConversationsView(conversations: conversations));
+      },
     );
   }
 }
