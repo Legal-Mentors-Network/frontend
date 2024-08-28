@@ -3,7 +3,7 @@ import 'package:lmn/models/message.dart';
 import 'package:lmn/models/user.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-List<Conversation> getConversationsMock(int quantity) {
+List<Conversation> getConversationsMock(int? quantity) {
   final user = User(
     id: "1",
     profileId: "1",
@@ -31,5 +31,5 @@ List<Conversation> getConversationsMock(int quantity) {
     unreadMessages: 0,
   );
 
-  return List.filled(3, conversation);
+  return List.filled(quantity ?? 0, conversation);
 }

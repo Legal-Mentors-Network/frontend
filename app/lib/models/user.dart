@@ -17,6 +17,7 @@ class User extends AuthUser {
     required this.location,
     required this.image,
     required super.onboarding,
+    super.numConversations = 0,
   });
 
   factory User.fromNetwork(RecordModel record) {
@@ -29,6 +30,7 @@ class User extends AuthUser {
       location: record.getStringValue('location'),
       image: record.getStringValue('avatar'),
       onboarding: record.getBoolValue('onboarding'),
+      numConversations: record.getIntValue('numConversations'),
     );
   }
 }

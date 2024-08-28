@@ -13,8 +13,6 @@ class ConversationNotifier extends AsyncNotifier<List<Conversation>> {
 
   @override
   Future<List<Conversation>> build() async {
-    // await Future.delayed(const Duration(seconds: 1));
-
     final pb = await ref.read(pocketbase);
 
     final user = ref.read(userProvider.notifier).user;

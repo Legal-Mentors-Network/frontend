@@ -7,6 +7,7 @@ import 'package:lmn/common/theme/constants.dart';
 import 'package:lmn/features/conversations/conversation_tile/conversation_tile.dart';
 import 'package:lmn/models/conversation.dart';
 import 'package:lmn/state/conversation.dart';
+import 'package:lmn/state/user.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class Conversations extends ConsumerWidget {
@@ -15,6 +16,7 @@ class Conversations extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final conversations = ref.watch(conversationProvider);
+    final user = ref.read(userProvider.notifier).user;
 
     return conversations.when(
       data: (data) {
@@ -26,7 +28,9 @@ class Conversations extends ConsumerWidget {
         return const Text("Error");
       },
       loading: () => Skeletonizer(
-        child: ConversationsView(conversations: getConversationsMock(3)),
+        child: ConversationsView(
+          conversations: getConversationsMock(user?.numConversations),
+        ),
       ),
     );
   }
