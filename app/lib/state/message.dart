@@ -29,6 +29,7 @@ class MessageNotifier extends FamilyAsyncNotifier<List<Message>, String> {
   }
 
   Future<void> registerListener() async {
+    log("registering msgs listener...");
     final pb = await ref.read(pocketbase);
 
     pb.collection('messages').subscribe('*', (e) {
@@ -38,6 +39,11 @@ class MessageNotifier extends FamilyAsyncNotifier<List<Message>, String> {
         final message = Message.fromNetwork(record);
         state = AsyncData([...messages, message]);
       }
+    });
+
+    ref.onCancel(() {
+      log("destroying msgs listener...");
+      pb.collection('messages').unsubscribe('*');
     });
   }
 
