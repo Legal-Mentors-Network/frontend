@@ -14,21 +14,24 @@ class SendMessage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: lg, vertical: xs),
       decoration: BoxDecoration(
-        color: context.colors.primaryContainer.withOpacity(0.9),
+        color: context.colors.primaryContainer,
         borderRadius: const BorderRadius.all(Radius.circular(rl)),
       ),
       child: Row(
         children: [
           Expanded(
-            child: TextField(
-              cursorColor: textColor,
-              autocorrect: false,
-              style: TextStyle(color: context.colors.onPrimaryContainer),
-              enableInteractiveSelection: false,
-              decoration: InputDecoration(
-                hintText: "Type a message",
-                border: InputBorder.none,
-                hintStyle: TextStyle(color: textColor),
+            child: Padding(
+              padding: const EdgeInsets.only(left: md),
+              child: TextField(
+                cursorColor: textColor,
+                autocorrect: false,
+                style: TextStyle(color: context.colors.onPrimaryContainer),
+                enableInteractiveSelection: false,
+                decoration: InputDecoration(
+                  hintText: "Type a message",
+                  border: InputBorder.none,
+                  hintStyle: TextStyle(color: textColor),
+                ),
               ),
             ),
           ),

@@ -67,26 +67,25 @@ class MessagesView extends ConsumerWidget {
 
     return Padding(
       padding: const EdgeInsets.only(top: md, right: md, left: md),
-      child: Column(
+      child: Stack(
+        alignment: Alignment.bottomCenter,
         children: [
-          Expanded(
-            child: ListView.separated(
-              reverse: true,
-              itemBuilder: (context, index) {
-                return ChatBubble(
-                  message: messages[messages.length - 1 - index],
-                  author: user,
-                  recipient: recipient,
-                  showRecipientName: false,
-                );
-              },
-              separatorBuilder: (context, index) => const SizedBox(height: sm),
-              itemCount: messages.length,
-            ),
+          ListView.separated(
+            padding: const EdgeInsets.only(bottom: 70),
+            reverse: true,
+            itemBuilder: (context, index) {
+              return ChatBubble(
+                message: messages[messages.length - 1 - index],
+                author: user,
+                recipient: recipient,
+                showRecipientName: false,
+              );
+            },
+            separatorBuilder: (context, index) => const SizedBox(height: sm),
+            itemCount: messages.length,
           ),
 
           //
-          const SizedBox(height: lg),
           const SendMessage(),
         ],
       ),
