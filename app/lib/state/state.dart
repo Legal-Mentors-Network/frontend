@@ -6,7 +6,7 @@ import 'package:lmn/state/auth.dart';
 import 'package:pocketbase/pocketbase.dart';
 
 // temp flag
-const dev = false;
+const dev = true;
 
 // sqflite
 final databaseProvider = Provider((ref) async {
