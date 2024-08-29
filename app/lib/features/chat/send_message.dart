@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lmn/common/extensions.dart';
 import 'package:lmn/common/theme/constants.dart';
+import 'package:lmn/state/message.dart';
 
-class SendMessage extends StatelessWidget {
+class SendMessage extends ConsumerWidget {
   const SendMessage({
     super.key,
+    required this.conversationId,
   });
 
+  final String conversationId;
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final sendMessage = ref.read(messageProvider(conversationId).notifier).sendMessage;
+
     final textColor = context.colors.onPrimaryContainer.withOpacity(0.7);
 
     return Material(
@@ -41,7 +48,10 @@ class SendMessage extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.send),
               color: textColor,
-              onPressed: () {},
+              onPressed: () => sendMessage(
+                message: "Hello",
+                conversationId: conversationId,
+              ),
             ),
           ],
         ),

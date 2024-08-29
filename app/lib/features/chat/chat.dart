@@ -86,7 +86,7 @@ class MessagesView extends ConsumerWidget {
           ),
 
           //
-          const SendMessage(),
+          SendMessage(conversationId: conversationId),
         ],
       ),
     );

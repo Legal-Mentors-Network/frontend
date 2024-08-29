@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lmn/models/message.dart';
 import 'package:lmn/state/state.dart';
+import 'package:lmn/state/user.dart';
 import 'package:pocketbase/pocketbase.dart';
 
 final messageProvider = AsyncNotifierProvider.family<MessageNotifier, List<Message>, String>(MessageNotifier.new);
@@ -23,5 +24,28 @@ class MessageNotifier extends FamilyAsyncNotifier<List<Message>, String> {
     }
 
     return [];
+  }
+
+  Future<void> sendMessage({
+    required String conversationId,
+    required String message,
+  }) async {
+    final pb = await ref.read(pocketbase);
+    final user = ref.read(userProvider.notifier).user;
+
+    if (user == null) return;
+
+    final body = <String, dynamic>{
+      "conversation": conversationId,
+      "author": user.id,
+      "message": message,
+      "read": false,
+    };
+
+    try {
+      await pb.collection('messages').create(body: body);
+    } on ClientException catch (e) {
+      log("Failed to send message ${e.statusCode} ${e.originalError}");
+    }
   }
 }
