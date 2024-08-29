@@ -38,12 +38,11 @@ class MessageNotifier extends FamilyAsyncNotifier<List<Message>, String> {
     pb.collection('messages').subscribe('*', (e) {
       final record = e.record;
 
-      if (e.action == 'create' && record != null) {
-        if (record.getStringValue('conversation') != conversationId) return;
+      if (e.action != 'create' || record == null) return;
+      if (record.getStringValue('conversation') != conversationId) return;
 
-        final message = Message.fromNetwork(record);
-        state = AsyncData([...messages, message]);
-      }
+      final message = Message.fromNetwork(record);
+      state = AsyncData([...messages, message]);
     });
 
     ref.onCancel(() {
