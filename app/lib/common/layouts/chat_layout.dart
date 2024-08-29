@@ -42,7 +42,7 @@ class ChatLayout extends ConsumerWidget {
       backgroundColor: context.colors.surface,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(bottom: md),
+          padding: const EdgeInsets.only(bottom: sm),
           child: child,
         ),
       ),

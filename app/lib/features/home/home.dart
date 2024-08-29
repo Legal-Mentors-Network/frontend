@@ -33,7 +33,7 @@ class HomeView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: const EdgeInsets.only(left: md, right: md, top: sm),
+      padding: const EdgeInsets.only(top: lg, left: xl, right: xl),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -59,18 +59,15 @@ class HomeView extends ConsumerWidget {
 
           const SizedBox(height: xl),
 
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: md),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Welcome back,', style: context.text.titleLarge?.copyWith(color: context.colors.primary)),
-                Text(
-                  user.name,
-                  style: context.text.displaySmall?.copyWith(fontWeight: FontWeight.w900, color: context.colors.primary),
-                ),
-              ],
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Welcome back,', style: context.text.titleLarge?.copyWith(color: context.colors.primary)),
+              Text(
+                user.name,
+                style: context.text.displaySmall?.copyWith(fontWeight: FontWeight.w900, color: context.colors.primary),
+              ),
+            ],
           ),
         ],
       ),

@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lmn/common/extensions.dart';
 import 'package:lmn/common/theme/constants.dart';
 import 'package:lmn/features/chat/chat_bubble.dart';
+import 'package:lmn/features/chat/send_message.dart';
 import 'package:lmn/models/message.dart';
 import 'package:lmn/state/conversation.dart';
 import 'package:lmn/state/message.dart';
@@ -65,19 +66,29 @@ class MessagesView extends ConsumerWidget {
     final recipient = notifier.getConversationRecipient(conversation, user);
 
     return Padding(
-      padding: const EdgeInsets.all(md),
-      child: ListView.separated(
-        reverse: true,
-        itemBuilder: (context, index) {
-          return ChatBubble(
-            message: messages[messages.length - 1 - index],
-            author: user,
-            recipient: recipient,
-            showRecipientName: false,
-          );
-        },
-        separatorBuilder: (context, index) => const SizedBox(height: sm),
-        itemCount: messages.length,
+      padding: const EdgeInsets.only(top: md, right: md, left: md),
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView.separated(
+              reverse: true,
+              itemBuilder: (context, index) {
+                return ChatBubble(
+                  message: messages[messages.length - 1 - index],
+                  author: user,
+                  recipient: recipient,
+                  showRecipientName: false,
+                );
+              },
+              separatorBuilder: (context, index) => const SizedBox(height: sm),
+              itemCount: messages.length,
+            ),
+          ),
+
+          //
+          const SizedBox(height: lg),
+          const SendMessage(),
+        ],
       ),
     );
   }
