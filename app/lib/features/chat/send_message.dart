@@ -31,7 +31,6 @@ class SendMessage extends ConsumerWidget {
       );
 
       messageController.clear();
-      FocusManager.instance.primaryFocus?.unfocus();
     }
 
     return Material(

@@ -9,11 +9,15 @@ import 'package:pocketbase/pocketbase.dart';
 final messageProvider = AsyncNotifierProvider.family<MessageNotifier, List<Message>, String>(MessageNotifier.new);
 
 class MessageNotifier extends FamilyAsyncNotifier<List<Message>, String> {
+  late final String conversationId;
+
   List<Message> get messages => state.value ?? [];
 
   @override
-  Future<List<Message>> build(String conversationId) async {
+  Future<List<Message>> build(String id) async {
     final pb = await ref.read(pocketbase);
+
+    conversationId = id;
 
     try {
       final filter = 'conversation = "$conversationId"';
@@ -29,13 +33,14 @@ class MessageNotifier extends FamilyAsyncNotifier<List<Message>, String> {
   }
 
   Future<void> registerListener() async {
-    log("registering msgs listener...");
     final pb = await ref.read(pocketbase);
 
     pb.collection('messages').subscribe('*', (e) {
       final record = e.record;
 
       if (e.action == 'create' && record != null) {
+        if (record.getStringValue('conversation') != conversationId) return;
+
         final message = Message.fromNetwork(record);
         state = AsyncData([...messages, message]);
       }
