@@ -26,6 +26,7 @@ dependencies:
   flutter_chat_ui: ^1.6.15
   flutter_chat_types: ^3.6.2
   skeletonizer: ^1.4.2
+  loading_animation_widget: ^1.2.1
 
 dev_dependencies:
   custom_lint: ^0.6.4
