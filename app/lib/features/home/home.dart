@@ -64,7 +64,7 @@ class HomeView extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Welcome back,', style: context.text.titleLarge?.copyWith(color: context.colors.secondary)),
+                Text('Welcome back,', style: context.text.titleLarge?.copyWith(color: context.colors.primary)),
                 Text(
                   user.name,
                   style: context.text.displaySmall?.copyWith(fontWeight: FontWeight.w900, color: context.colors.primary),

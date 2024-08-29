@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lmn/common/extensions.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class Time extends StatelessWidget {
   const Time({
@@ -14,13 +15,15 @@ class Time extends StatelessWidget {
   Widget build(BuildContext context) {
     final String formattedTime = DateFormat('HH:mm').format(time);
 
-    return Padding(
-      padding: const EdgeInsets.only(top: 7),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(formattedTime, style: context.text.bodySmall),
-        ],
+    return Skeleton.ignore(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 7),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(formattedTime, style: context.text.bodySmall),
+          ],
+        ),
       ),
     );
   }

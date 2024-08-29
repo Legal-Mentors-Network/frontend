@@ -2,12 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lmn/common/extensions.dart';
 import 'package:lmn/common/theme/constants.dart';
 import 'package:lmn/features/chat/chat_bubble.dart';
 import 'package:lmn/models/message.dart';
 import 'package:lmn/state/conversation.dart';
 import 'package:lmn/state/message.dart';
 import 'package:lmn/state/user.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class Chat extends ConsumerWidget {
   const Chat({
@@ -24,13 +26,21 @@ class Chat extends ConsumerWidget {
     return messages.when(
       data: (data) {
         if (data.isEmpty) return const SizedBox.shrink();
-        return MessagesView(conversationId: conversationId, messages: data);
+        return MessagesView(messages: data, conversationId: conversationId);
       },
       error: (error, stackTrace) {
         log(error.toString(), stackTrace: stackTrace);
         return const Text("Error");
       },
-      loading: () => const Text("Loading..."),
+      loading: () => Center(
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: xl),
+          child: LoadingAnimationWidget.fourRotatingDots(
+            color: context.colors.secondary,
+            size: 50,
+          ),
+        ),
+      ),
     );
   }
 }
