@@ -48,6 +48,7 @@ final routerProvider = Provider((ref) {
           matches,
           conversations,
           settings,
+          profile,
         ],
       ),
       assignNavigatorKey(chat, rootNavigatorKey),

@@ -6,6 +6,8 @@ class Routes {
   static Route conversations = Route(name: 'conversations', path: '/conversations', title: 'Messsages');
   static Route chat = Route(name: 'chat', path: '/chat/:conversationId');
   static Route settings = Route(name: 'settings', path: '/settings', title: "Settings");
+  static Route profile = Route(name: 'profile', path: '/profile', title: "Profile");
+
   static Route welcome = Route(name: 'welcome', path: '/welcome');
   static Route profileIntro = Route(name: 'profileIntro', path: '/profile-intro');
 }
@@ -20,6 +22,7 @@ final List<Route> protectedRoutes = [
   Routes.settings,
   Routes.conversations,
   Routes.chat,
+  Routes.profile,
 ];
 
 final List<Route> onboardingRoutes = [
