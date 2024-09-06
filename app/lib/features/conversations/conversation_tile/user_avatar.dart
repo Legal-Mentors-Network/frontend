@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lmn/common/extensions.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class Avatar extends StatelessWidget {
   const Avatar({
@@ -39,11 +40,15 @@ class UserImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipOval(
-      child: CachedNetworkImage(
-        imageUrl: image,
+      child: Skeleton.replace(
         height: 50,
         width: 50,
-        fit: BoxFit.cover,
+        child: CachedNetworkImage(
+          imageUrl: image,
+          height: 50,
+          width: 50,
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }

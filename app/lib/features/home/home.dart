@@ -4,6 +4,7 @@ import 'package:lmn/common/extensions.dart';
 import 'package:lmn/common/theme/constants.dart';
 import 'package:lmn/features/home/avatar.dart';
 import 'package:lmn/models/user.dart';
+import 'package:lmn/state/auth.dart';
 import 'package:lmn/state/user.dart';
 
 class Home extends ConsumerWidget {
@@ -24,15 +25,15 @@ class Home extends ConsumerWidget {
   }
 }
 
-class HomeView extends StatelessWidget {
+class HomeView extends ConsumerWidget {
   const HomeView({super.key, required this.user});
 
   final User user;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: const EdgeInsets.only(left: md, right: md, top: sm),
+      padding: const EdgeInsets.only(top: lg, left: xl, right: xl),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -48,6 +49,7 @@ class HomeView extends StatelessWidget {
               IconButton(
                 onPressed: () => {
                   debugPrint("clicked"),
+                  ref.read(auth.notifier).logout(),
                 },
                 icon: const Icon(Icons.menu),
                 iconSize: 34,
@@ -57,18 +59,15 @@ class HomeView extends StatelessWidget {
 
           const SizedBox(height: xl),
 
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: md),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Welcome back,', style: context.text.titleLarge?.copyWith(color: context.colors.secondary)),
-                Text(
-                  user.name,
-                  style: context.text.displaySmall?.copyWith(fontWeight: FontWeight.w900, color: context.colors.primary),
-                ),
-              ],
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Welcome back,', style: context.text.titleLarge?.copyWith(color: context.colors.primary)),
+              Text(
+                user.name,
+                style: context.text.displaySmall?.copyWith(fontWeight: FontWeight.w900, color: context.colors.primary),
+              ),
+            ],
           ),
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lmn/common/theme/constants.dart';
@@ -7,8 +8,10 @@ import 'package:lmn/features/conversations/conversation_tile/name.dart';
 import 'package:lmn/features/conversations/conversation_tile/time.dart';
 import 'package:lmn/features/conversations/conversation_tile/user_avatar.dart';
 import 'package:lmn/models/conversation.dart';
+import 'package:lmn/state/conversation.dart';
+import 'package:lmn/state/user.dart';
 
-class ConversationTile extends StatelessWidget {
+class ConversationTile extends ConsumerWidget {
   const ConversationTile({
     super.key,
     required this.conversation,
@@ -17,8 +20,15 @@ class ConversationTile extends StatelessWidget {
   final Conversation conversation;
 
   @override
-  Widget build(BuildContext context) {
-    final recipient = conversation.recipient;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.read(userProvider.notifier).user;
+
+    if (user == null) {
+      return const SizedBox.shrink();
+    }
+
+    final recipient = ref.read(conversationProvider.notifier).getConversationRecipient(conversation, user);
+
     final latestMessage = conversation.latestMessage;
 
     return Slidable(

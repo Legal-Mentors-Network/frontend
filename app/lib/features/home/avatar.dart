@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lmn/common/theme/constants.dart';
+import 'package:lmn/router/routes.dart';
 
 class Avatar extends StatelessWidget {
   const Avatar({
@@ -33,9 +35,7 @@ class Avatar extends StatelessWidget {
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                onTap: () {
-                  debugPrint('go to profile');
-                },
+                onTap: () => context.go(Routes.profile.path),
               ),
             ),
           ),

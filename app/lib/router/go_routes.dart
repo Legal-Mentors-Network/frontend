@@ -8,6 +8,7 @@ import 'package:lmn/features/chat/chat.dart';
 import 'package:lmn/features/conversations/conversations.dart';
 import 'package:lmn/features/home/home.dart';
 import 'package:lmn/features/matches/matches.dart';
+import 'package:lmn/features/profile/profile.dart';
 import 'package:lmn/features/profile_setup/profile_intro.dart';
 import 'package:lmn/features/settings/settings.dart';
 import 'package:lmn/features/welcome/welcome.dart';
@@ -65,6 +66,14 @@ GoRoutePartial chat = GoRoutePartial(
         ),
       ),
     );
+  },
+);
+
+GoRoute profile = GoRoute(
+  name: Routes.profile.name,
+  path: Routes.profile.path,
+  pageBuilder: (BuildContext context, GoRouterState state) {
+    return const NoTransitionPage(child: Profile());
   },
 );
 
