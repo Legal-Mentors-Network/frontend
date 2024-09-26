@@ -37,13 +37,18 @@ class SendMessage extends ConsumerWidget {
       elevation: xs,
       borderRadius: BorderRadius.circular(rl),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: lg, vertical: xs),
+        padding: const EdgeInsets.symmetric(horizontal: sm, vertical: sm),
         decoration: BoxDecoration(
           color: context.colors.primaryContainer,
           borderRadius: const BorderRadius.all(Radius.circular(rl)),
         ),
         child: Row(
           children: [
+            IconButton(
+              icon: const Icon(Icons.add, size: mx),
+              color: textColor,
+              onPressed: () {},
+            ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(left: md),
