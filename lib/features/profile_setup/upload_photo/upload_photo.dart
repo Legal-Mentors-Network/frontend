@@ -1,55 +1,49 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lmn/common/components/button/app_button.dart';
 import 'package:lmn/common/components/upload_photo/upload_photo_bottom_sheet.dart';
 import 'package:lmn/common/controllers/application_controller.dart';
+import 'package:lmn/common/extensions.dart';
 import 'package:lmn/common/theme/constants.dart';
+import 'package:lmn/features/profile_setup/upload_photo/state.dart';
 import 'package:lmn/router/routes.dart';
 
-class ProfileUploadPhoto extends StatefulWidget {
+class ProfileUploadPhoto extends ConsumerWidget {
   const ProfileUploadPhoto({super.key});
 
   @override
-  State<ProfileUploadPhoto> createState() => _ProfileUploadPhotoState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    void showOptions(int index) {
+      Future<void> uploadImage(ImageSource imageSource) async {
+        debugPrint("uploadImage");
+        await ApplicationController.selectImage(imageSource).then((image) {
+          if (image == null) return;
 
-class _ProfileUploadPhotoState extends State<ProfileUploadPhoto> {
-  Map<int, File> images = {};
+          ref.read(imagesProvider.notifier).addImage(index, image);
 
-  void showOptions(int index) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    Future<void> uploadImage(ImageSource imageSource) async {
-      debugPrint("uploadImage");
-      await ApplicationController.selectImage(imageSource).then((image) {
-        if (image == null) return;
-
-        setState(() {
-          images[index] = image;
+          // ignore: use_build_context_synchronously
+          Navigator.pop(context);
         });
+      }
 
-        // ignore: use_build_context_synchronously
-        Navigator.pop(context);
-      });
+      showModalBottomSheet(
+        backgroundColor: context.colors.primaryContainer,
+        shape: const BeveledRectangleBorder(),
+        context: context,
+        builder: (context) => UploadPhotoBottomSheet(callback: uploadImage),
+      );
     }
 
-    showModalBottomSheet(
-      backgroundColor: colorScheme.primaryContainer,
-      shape: const BeveledRectangleBorder(),
-      context: context,
-      builder: (context) => UploadPhotoBottomSheet(callback: uploadImage),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
     final Widget backButton = IconButton(
       icon: const Icon(Icons.arrow_back_ios_new),
       onPressed: () => context.pop(),
     );
+
+    final images = ref.watch(imagesProvider);
 
     return Scaffold(
       appBar: AppBar(

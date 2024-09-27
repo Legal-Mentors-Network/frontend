@@ -10,7 +10,7 @@ import 'package:lmn/features/home/home.dart';
 import 'package:lmn/features/matches/matches.dart';
 import 'package:lmn/features/profile/profile.dart';
 import 'package:lmn/features/profile_setup/profile_intro.dart';
-import 'package:lmn/features/profile_setup/upload_photo.dart';
+import 'package:lmn/features/profile_setup/upload_photo/upload_photo.dart';
 import 'package:lmn/features/settings/settings.dart';
 import 'package:lmn/features/welcome/welcome.dart';
 import 'package:lmn/models/go_route_partial.dart';
