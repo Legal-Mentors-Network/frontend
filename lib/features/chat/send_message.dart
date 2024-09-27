@@ -35,6 +35,7 @@ class SendMessage extends ConsumerWidget {
       );
 
       messageController.clear();
+      ref.read(attachmentProvider.notifier).clear();
     }
 
     void showOptions() {

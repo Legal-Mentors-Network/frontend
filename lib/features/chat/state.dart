@@ -14,6 +14,10 @@ class AttachmentNotifier extends Notifier<Attachment?> {
   void selectFile(XFile attachment) {
     state = Attachment.fromXFile(attachment);
   }
+
+  void clear() {
+    state = null;
+  }
 }
 
 final attachmentProvider = NotifierProvider<AttachmentNotifier, Attachment?>(
