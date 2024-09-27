@@ -10,6 +10,7 @@ import 'package:lmn/features/home/home.dart';
 import 'package:lmn/features/matches/matches.dart';
 import 'package:lmn/features/profile/profile.dart';
 import 'package:lmn/features/profile_setup/profile_intro.dart';
+import 'package:lmn/features/profile_setup/upload_photo.dart';
 import 'package:lmn/features/settings/settings.dart';
 import 'package:lmn/features/welcome/welcome.dart';
 import 'package:lmn/models/go_route_partial.dart';
@@ -90,5 +91,13 @@ GoRoutePartial profileIntro = GoRoutePartial(
   path: Routes.profileIntro.path,
   pageBuilder: (BuildContext context, GoRouterState state) {
     return const NoTransitionPage(child: SimpleLayout(child: ProfileIntro()));
+  },
+);
+
+GoRoutePartial profileUploadPhoto = GoRoutePartial(
+  name: Routes.profileUploadPhoto.name,
+  path: Routes.profileUploadPhoto.path,
+  pageBuilder: (BuildContext context, GoRouterState state) {
+    return const NoTransitionPage(child: SimpleLayout(child: ProfileUploadPhoto()));
   },
 );

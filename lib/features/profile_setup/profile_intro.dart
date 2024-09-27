@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lmn/common/extensions.dart';
 import 'package:lmn/common/theme/constants.dart';
-import 'package:lmn/state/auth.dart';
+import 'package:lmn/router/routes.dart';
 
 class ProfileIntro extends ConsumerWidget {
   const ProfileIntro({super.key});
@@ -64,9 +65,9 @@ class ProfileIntro extends ConsumerWidget {
 
                     //
                     FilledButton(
-                      child: const Text('Setup your profile (logout)'),
+                      child: const Text('Setup your profile (photo)'),
                       onPressed: () {
-                        ref.read(auth.notifier).logout();
+                        context.go(Routes.profileUploadPhoto.path);
                       },
                     ),
                   ],

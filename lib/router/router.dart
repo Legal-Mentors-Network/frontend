@@ -54,6 +54,7 @@ final routerProvider = Provider((ref) {
       assignNavigatorKey(chat, rootNavigatorKey),
       assignNavigatorKey(welcome, rootNavigatorKey),
       assignNavigatorKey(profileIntro, rootNavigatorKey),
+      assignNavigatorKey(profileUploadPhoto, rootNavigatorKey),
     ],
   );
 });

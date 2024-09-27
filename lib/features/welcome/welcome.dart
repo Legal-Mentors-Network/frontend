@@ -60,7 +60,9 @@ class Welcome extends ConsumerWidget {
                 //
                 FilledButton(
                   child: const Text('I already have an account'),
-                  onPressed: () {},
+                  onPressed: () {
+                    ref.read(auth.notifier).login("yellow@mail.com", "Password123");
+                  },
                 ),
               ],
             ),

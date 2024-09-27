@@ -10,6 +10,8 @@ class Routes {
 
   static Route welcome = Route(name: 'welcome', path: '/welcome');
   static Route profileIntro = Route(name: 'profileIntro', path: '/profile-intro');
+
+  static Route profileUploadPhoto = Route(name: 'profile-upload-photo', path: '/profile-upload-photo');
 }
 
 final List<Route> routes = [
@@ -27,6 +29,7 @@ final List<Route> protectedRoutes = [
 
 final List<Route> onboardingRoutes = [
   Routes.profileIntro,
+  Routes.profileUploadPhoto,
 ];
 
 bool contains(List<Route> routes, String location) {
