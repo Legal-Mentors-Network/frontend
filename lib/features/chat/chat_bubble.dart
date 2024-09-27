@@ -136,21 +136,53 @@ class UserBubble extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 0.5),
             elevation: 0,
             color: const Color(0xFF4F3EEE),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: lg, vertical: lg),
-              child: Column(
-                children: [
-                  if (!isEmpty(message.attachment.toString())) Media(attachment: message.attachment!),
-                  Text(
-                    message.message,
-                    style: context.text.titleSmall?.apply(color: context.colors.onPrimary),
-                  ),
-                ],
-              ),
-            ),
+            child: MessageContent(message: message),
           ),
         ),
       ],
+    );
+  }
+}
+
+class MessageContent extends StatelessWidget {
+  const MessageContent({super.key, required this.message});
+
+  final Message message;
+
+  @override
+  Widget build(BuildContext context) {
+    if (isEmpty(message.attachment.toString())) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: lg, vertical: lg),
+        child: TextMessage(message: message),
+      );
+    }
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: sm, vertical: sm),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Media(attachment: message.attachment!),
+          Padding(
+            padding: const EdgeInsets.only(right: sm, left: sm, bottom: xs, top: sm),
+            child: TextMessage(message: message),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TextMessage extends StatelessWidget {
+  const TextMessage({super.key, required this.message});
+
+  final Message message;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      message.message,
+      style: context.text.bodyLarge?.apply(color: context.colors.onPrimary),
     );
   }
 }
