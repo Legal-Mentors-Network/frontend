@@ -31,6 +31,7 @@ class SendMessage extends ConsumerWidget {
       sendMessage(
         message: messageController.text,
         conversationId: conversationId,
+        image: ref.read(attachmentProvider),
       );
 
       messageController.clear();

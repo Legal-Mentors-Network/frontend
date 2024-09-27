@@ -1,5 +1,7 @@
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lmn/models/message.dart';
 import 'package:lmn/state/state.dart';
@@ -51,9 +53,17 @@ class MessageNotifier extends FamilyAsyncNotifier<List<Message>, String> {
     });
   }
 
-  Future<void> sendMessage({required String conversationId, required String message}) async {
+  Future<void> sendMessage({
+    required String conversationId,
+    required String message,
+    File? file,
+  }) async {
     final pb = await ref.read(pocketbase);
     final user = ref.read(userProvider.notifier).user;
+
+    if (file != null) {
+      debugPrint("we got an image");
+    }
 
     if (user == null) return;
 
