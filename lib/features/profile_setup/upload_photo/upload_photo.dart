@@ -19,15 +19,11 @@ class ProfileUploadPhoto extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     void showOptions(int index) {
       Future<void> uploadImage(ImageSource imageSource) async {
-        debugPrint("uploadImage");
-        await ApplicationController.selectImage(imageSource).then((image) {
-          if (image == null) return;
+        final image = await ApplicationController.selectImage(imageSource);
+        if (image == null) return;
 
-          ref.read(imagesProvider.notifier).addImage(index, image);
-
-          // ignore: use_build_context_synchronously
-          Navigator.pop(context);
-        });
+        ref.read(imagesProvider.notifier).addImage(index, image);
+        if (context.mounted) Navigator.pop(context);
       }
 
       showModalBottomSheet(
@@ -50,7 +46,7 @@ class ProfileUploadPhoto extends ConsumerWidget {
         leading: backButton,
         scrolledUnderElevation: 0.0,
       ),
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: context.colors.surface,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: xl, vertical: md),
