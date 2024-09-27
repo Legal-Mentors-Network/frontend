@@ -71,7 +71,7 @@ class MessagesView extends ConsumerWidget {
         alignment: Alignment.bottomCenter,
         children: [
           ListView.separated(
-            padding: const EdgeInsets.only(bottom: 70),
+            padding: const EdgeInsets.only(bottom: 78),
             reverse: true,
             itemBuilder: (context, index) {
               return ChatBubble(

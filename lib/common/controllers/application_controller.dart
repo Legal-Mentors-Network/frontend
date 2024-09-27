@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -74,12 +73,10 @@ class ApplicationController {
     return placemarks[0];
   }
 
-  static Future<File?> selectImage(ImageSource imageSource) async {
+  static Future<XFile?> selectImage(ImageSource imageSource) async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: imageSource);
-
-    if (image == null) return null;
-    return File(image.path);
+    return image;
   }
 
   // load user from cache

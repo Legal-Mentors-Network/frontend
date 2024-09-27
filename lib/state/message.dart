@@ -1,8 +1,9 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as http;
+import 'package:lmn/models/attachment.dart';
 import 'package:lmn/models/message.dart';
 import 'package:lmn/state/state.dart';
 import 'package:lmn/state/user.dart';
@@ -56,14 +57,10 @@ class MessageNotifier extends FamilyAsyncNotifier<List<Message>, String> {
   Future<void> sendMessage({
     required String conversationId,
     required String message,
-    File? file,
+    Attachment? file,
   }) async {
     final pb = await ref.read(pocketbase);
     final user = ref.read(userProvider.notifier).user;
-
-    if (file != null) {
-      debugPrint("we got an image");
-    }
 
     if (user == null) return;
 
@@ -74,8 +71,25 @@ class MessageNotifier extends FamilyAsyncNotifier<List<Message>, String> {
       "read": false,
     };
 
+    final List<http.MultipartFile> files = [];
+
     try {
-      await pb.collection('messages').create(body: body);
+      if (file != null) {
+        debugPrint("we got an image");
+        files.add(
+          await http.MultipartFile.fromPath(
+            "attachment",
+            file.path,
+            filename: file.name,
+          ),
+        );
+      }
+    } catch (e) {
+      log("Failed to attach image $e");
+    }
+
+    try {
+      await pb.collection('messages').create(body: body, files: files);
     } on ClientException catch (e) {
       log("Failed to send message ${e.statusCode} ${e.originalError}");
     }

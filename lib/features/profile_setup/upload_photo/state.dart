@@ -1,18 +1,17 @@
-import 'dart:io';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 
-class UploadPhotoNotifier extends Notifier<Map<int, File>> {
+class UploadPhotoNotifier extends Notifier<Map<int, XFile>> {
   @override
-  Map<int, File> build() {
+  Map<int, XFile> build() {
     return {};
   }
 
-  void addImage(int id, File image) {
+  void addImage(int id, XFile image) {
     state = {...state, id: image};
   }
 }
 
-final imagesProvider = NotifierProvider<UploadPhotoNotifier, Map<int, File>>(
+final imagesProvider = NotifierProvider<UploadPhotoNotifier, Map<int, XFile>>(
   UploadPhotoNotifier.new,
 );

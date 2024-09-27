@@ -90,7 +90,7 @@ class ProfileUploadPhoto extends ConsumerWidget {
                     crossAxisSpacing: md,
                   ),
                   itemBuilder: (context, index) {
-                    final File? currentImage = images[index];
+                    final currentImage = images[index];
 
                     if (currentImage == null) {
                       return GestureDetector(
@@ -114,7 +114,7 @@ class ProfileUploadPhoto extends ConsumerWidget {
                         child: ClipRRect(
                           borderRadius: const BorderRadius.all(Radius.circular(md)),
                           child: Image.file(
-                            currentImage,
+                            File(currentImage.path),
                             fit: BoxFit.cover,
                           ),
                         ),
