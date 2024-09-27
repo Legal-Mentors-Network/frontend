@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lmn/common/extensions.dart';
 import 'package:lmn/common/theme/constants.dart';
+import 'package:lmn/common/utils.dart';
 import 'package:lmn/models/message.dart';
 import 'package:lmn/models/user.dart';
 import 'package:lmn/state/theme.dart';
@@ -136,14 +138,36 @@ class UserBubble extends StatelessWidget {
             color: const Color(0xFF4F3EEE),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: lg, vertical: lg),
-              child: Text(
-                message.message,
-                style: context.text.titleSmall?.apply(color: context.colors.onPrimary),
+              child: Column(
+                children: [
+                  if (!isEmpty(message.attachment.toString())) Media(attachment: message.attachment!),
+                  Text(
+                    message.message,
+                    style: context.text.titleSmall?.apply(color: context.colors.onPrimary),
+                  ),
+                ],
               ),
             ),
           ),
         ),
       ],
+    );
+  }
+}
+
+class Media extends StatelessWidget {
+  const Media({super.key, required this.attachment});
+
+  final Uri attachment;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: const BorderRadius.all(Radius.circular(md)),
+      child: CachedNetworkImage(
+        imageUrl: attachment.toString(),
+        fit: BoxFit.cover,
+      ),
     );
   }
 }

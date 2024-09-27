@@ -26,7 +26,10 @@ class MessageNotifier extends FamilyAsyncNotifier<List<Message>, String> {
       final messages = await pb.collection('messages').getList(page: 1, perPage: 30, filter: filter);
 
       registerListener();
-      return messages.items.map((message) => Message.fromNetwork(message)).toList();
+      return messages.items.map((record) {
+        final attachment = pb.files.getUrl(record, record.getStringValue('attachment'));
+        return Message.fromNetwork(record, attachment: attachment);
+      }).toList();
     } on ClientException catch (e) {
       log("Failed to fetch messages ${e.statusCode} ${e.originalError}");
     }
@@ -43,7 +46,9 @@ class MessageNotifier extends FamilyAsyncNotifier<List<Message>, String> {
       if (e.action != 'create' || record == null) return;
       if (record.getStringValue('conversation') != conversationId) return;
 
-      final message = Message.fromNetwork(record);
+      final attachment = pb.files.getUrl(record, record.getStringValue('attachment'));
+      final message = Message.fromNetwork(record, attachment: attachment);
+
       state = AsyncData([...messages, message]);
     });
 
