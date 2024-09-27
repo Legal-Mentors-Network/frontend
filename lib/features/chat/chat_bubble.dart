@@ -65,16 +65,17 @@ class RecipientBubble extends ConsumerWidget {
             margin: const EdgeInsets.symmetric(vertical: 0.5),
             elevation: 0,
             color: color,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: lg, vertical: lg),
+            child: MessageContent(
+              message: message,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (showRecipientName) RecipientName(recipient: recipient, textColor: textColor),
-                  Text(
-                    message.message,
-                    style: context.text.titleSmall,
-                  ),
+                  if (showRecipientName)
+                    Padding(
+                      padding: !isEmpty(message.attachment.toString())
+                          ? const EdgeInsets.only(right: sm, left: sm, top: md, bottom: sm)
+                          : EdgeInsets.zero,
+                      child: RecipientName(recipient: recipient, textColor: textColor),
+                    ),
                 ],
               ),
             ),
@@ -145,16 +146,23 @@ class UserBubble extends StatelessWidget {
 }
 
 class MessageContent extends StatelessWidget {
-  const MessageContent({super.key, required this.message});
+  const MessageContent({super.key, required this.message, this.child});
 
   final Message message;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
     if (isEmpty(message.attachment.toString())) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: lg, vertical: lg),
-        child: TextMessage(message: message),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (child != null) child!,
+            TextMessage(message: message),
+          ],
+        ),
       );
     }
     return Padding(
@@ -162,6 +170,7 @@ class MessageContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (child != null) child!,
           Media(attachment: message.attachment!),
           Padding(
             padding: const EdgeInsets.only(right: sm, left: sm, bottom: xs, top: sm),
