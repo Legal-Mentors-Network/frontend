@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:lmn/models/attachment.dart';
@@ -73,19 +72,14 @@ class MessageNotifier extends FamilyAsyncNotifier<List<Message>, String> {
 
     final List<http.MultipartFile> files = [];
 
-    try {
-      if (file != null) {
-        debugPrint("we got an image");
-        files.add(
-          await http.MultipartFile.fromPath(
-            "attachment",
-            file.path,
-            filename: file.name,
-          ),
-        );
-      }
-    } catch (e) {
-      log("Failed to attach image $e");
+    if (file != null) {
+      files.add(
+        await http.MultipartFile.fromPath(
+          "attachment",
+          file.path,
+          filename: file.name,
+        ),
+      );
     }
 
     try {
