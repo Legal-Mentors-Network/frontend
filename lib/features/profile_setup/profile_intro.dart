@@ -68,6 +68,7 @@ class ProfileIntro extends ConsumerWidget {
                       child: const Text('Setup your profile (photo)'),
                       onPressed: () {
                         context.go(Routes.profileUploadPhoto.path);
+                        // ref.read(auth.notifier).logout();
                       },
                     ),
                   ],

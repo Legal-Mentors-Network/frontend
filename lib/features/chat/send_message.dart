@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:lmn/common/components/upload_photo/upload_photo_bottom_sheet.dart';
+import 'package:lmn/common/controllers/application_controller.dart';
 import 'package:lmn/common/extensions.dart';
 import 'package:lmn/common/theme/constants.dart';
 import 'package:lmn/features/chat/state.dart';
@@ -33,6 +36,23 @@ class SendMessage extends ConsumerWidget {
       messageController.clear();
     }
 
+    void showOptions() {
+      Future<void> uploadImage(ImageSource imageSource) async {
+        final image = await ApplicationController.selectImage(imageSource);
+        if (image == null) return;
+
+        ref.read(attachmentProvider.notifier).selectFile(image);
+        if (context.mounted) Navigator.pop(context);
+      }
+
+      showModalBottomSheet(
+        backgroundColor: context.colors.primaryContainer,
+        shape: const BeveledRectangleBorder(),
+        context: context,
+        builder: (context) => UploadPhotoBottomSheet(callback: uploadImage),
+      );
+    }
+
     return Material(
       elevation: xs,
       borderRadius: BorderRadius.circular(rl),
@@ -47,7 +67,7 @@ class SendMessage extends ConsumerWidget {
             IconButton(
               icon: const Icon(Icons.add, size: mx),
               color: textColor,
-              onPressed: () {},
+              onPressed: showOptions,
             ),
             Expanded(
               child: Padding(

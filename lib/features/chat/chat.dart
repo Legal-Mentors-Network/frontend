@@ -81,7 +81,7 @@ class MessagesView extends ConsumerWidget {
                 showRecipientName: false,
               );
             },
-            separatorBuilder: (context, index) => const SizedBox(height: sm),
+            separatorBuilder: (context, index) => const SizedBox(height: md),
             itemCount: messages.length,
           ),
 
