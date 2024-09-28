@@ -23,10 +23,10 @@ class MessageNotifier extends FamilyAsyncNotifier<List<Message>, String> {
 
     try {
       final filter = 'conversation = "$conversationId"';
-      final messages = await pb.collection('messages').getList(page: 1, perPage: 30, filter: filter);
+      final messages = await pb.collection('messages').getFullList(filter: filter);
 
       registerListener();
-      return messages.items.map((record) {
+      return messages.map((record) {
         final attachment = pb.files.getUrl(record, record.getStringValue('attachment'));
         return Message.fromNetwork(record, attachment: attachment);
       }).toList();
