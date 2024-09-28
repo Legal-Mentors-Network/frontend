@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lmn/common/extensions.dart';
@@ -67,9 +68,36 @@ class HomeView extends ConsumerWidget {
                 user.name,
                 style: context.text.displaySmall?.copyWith(fontWeight: FontWeight.w900, color: context.colors.primary),
               ),
+
+              //
+              const SizedBox(height: xl),
+              const EnvIndicator(),
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class EnvIndicator extends StatelessWidget {
+  const EnvIndicator({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    String env = "Production";
+    Color color = context.colors.primary;
+
+    if (kDebugMode) {
+      env = "Development";
+      color = context.colors.secondary;
+    }
+
+    return Text(
+      env,
+      style: context.text.titleLarge?.copyWith(
+        color: color,
+        fontWeight: FontWeight.bold,
       ),
     );
   }

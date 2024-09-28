@@ -1,12 +1,10 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lmn/common/controllers/application_controller.dart';
 import 'package:lmn/data/config_table.dart';
 import 'package:lmn/data/database.dart';
 import 'package:lmn/state/auth.dart';
 import 'package:pocketbase/pocketbase.dart';
-
-// temp flag
-const dev = true;
 
 // sqflite
 final databaseProvider = Provider((ref) async {
@@ -25,12 +23,8 @@ final pocketbase = Provider((ref) async {
     initial: authenticatedUser?.value ?? '',
   );
 
-  // use http://10.0.2.2:8090 for android
-  // use htpp://127.0.0.1:8090 for ios
-  // use https://lmn.pockethost.io for real device
-  if (dev) {
-    return PocketBase('http://localhost:8090', authStore: store);
-  }
+  // for dev use http://10.0.2.2:8090 for android or  htpp://127.0.0.1:8090 for ios
 
-  return PocketBase('https://lmn.pockethost.io', authStore: store);
+  final env = dotenv.env['PB'];
+  return PocketBase(env!, authStore: store);
 });
