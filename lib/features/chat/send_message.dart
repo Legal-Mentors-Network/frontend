@@ -24,14 +24,15 @@ class SendMessage extends ConsumerWidget {
     final textColor = context.colors.onPrimaryContainer.withOpacity(0.7);
 
     void submitMessage() {
-      if (messageController.text.isEmpty) {
+      final file = ref.read(attachmentProvider);
+      if (messageController.text.isEmpty && file == null) {
         return;
       }
 
       sendMessage(
         message: messageController.text,
         conversationId: conversationId,
-        file: ref.read(attachmentProvider),
+        file: file,
       );
 
       messageController.clear();

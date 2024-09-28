@@ -153,6 +153,7 @@ class MessageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // no file
     if (isEmpty(message.attachment.toString())) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: lg, vertical: lg),
@@ -165,6 +166,13 @@ class MessageContent extends StatelessWidget {
         ),
       );
     }
+
+    // file but no text
+    if (isEmpty(message.message)) {
+      return Media(attachment: message.attachment!);
+    }
+
+    // file and text
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: sm, vertical: sm),
       child: Column(
