@@ -24,21 +24,24 @@ class Chat extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final messages = ref.watch(messageProvider(conversationId));
 
-    return messages.when(
-      data: (data) {
-        if (data.isEmpty) return const SizedBox.shrink();
-        return MessagesView(messages: data, conversationId: conversationId);
-      },
-      error: (error, stackTrace) {
-        log(error.toString(), stackTrace: stackTrace);
-        return const Text("Error");
-      },
-      loading: () => Center(
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: xl),
-          child: LoadingAnimationWidget.fourRotatingDots(
-            color: context.colors.secondary,
-            size: 50,
+    return ColoredBox(
+      color: context.colors.surface,
+      child: messages.when(
+        data: (data) {
+          if (data.isEmpty) return const SizedBox.shrink();
+          return MessagesView(messages: data, conversationId: conversationId);
+        },
+        error: (error, stackTrace) {
+          log(error.toString(), stackTrace: stackTrace);
+          return const Text("Error");
+        },
+        loading: () => Center(
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: xl),
+            child: LoadingAnimationWidget.fourRotatingDots(
+              color: context.colors.secondary,
+              size: 50,
+            ),
           ),
         ),
       ),
@@ -65,12 +68,12 @@ class MessagesView extends ConsumerWidget {
     final conversation = notifier.getConversation(conversationId);
     final recipient = notifier.getConversationRecipient(conversation, user);
 
-    return ColoredBox(
-      color: context.colors.surface,
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Padding(
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Padding(
             padding: const EdgeInsets.only(top: md, right: md, left: md),
             child: ListView.separated(
               padding: const EdgeInsets.only(bottom: 78),
@@ -87,11 +90,11 @@ class MessagesView extends ConsumerWidget {
               itemCount: messages.length,
             ),
           ),
+        ),
 
-          //
-          SendMessage(conversationId: conversationId),
-        ],
-      ),
+        //
+        SendMessage(conversationId: conversationId),
+      ],
     );
   }
 }
