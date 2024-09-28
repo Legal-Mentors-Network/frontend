@@ -56,47 +56,42 @@ class SendMessage extends ConsumerWidget {
       );
     }
 
-    return Material(
-      elevation: xs,
-      borderRadius: BorderRadius.circular(rl),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: sm, vertical: sm),
-        decoration: BoxDecoration(
-          color: context.colors.primaryContainer,
-          borderRadius: const BorderRadius.all(Radius.circular(rl)),
-        ),
-        child: Row(
-          children: [
-            IconButton(
-              icon: const Icon(Icons.add, size: mx),
-              color: textColor,
-              onPressed: showOptions,
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: md),
-                child: TextField(
-                  controller: messageController,
-                  cursorColor: textColor,
-                  autocorrect: false,
-                  onEditingComplete: submitMessage,
-                  style: TextStyle(color: context.colors.onPrimaryContainer),
-                  enableInteractiveSelection: false,
-                  decoration: InputDecoration(
-                    hintText: "Type a message",
-                    border: InputBorder.none,
-                    hintStyle: TextStyle(color: textColor),
-                  ),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: sm, vertical: sm),
+      decoration: BoxDecoration(
+        color: context.colors.primaryContainer,
+      ),
+      child: Row(
+        children: [
+          IconButton(
+            icon: const Icon(Icons.add, size: mx),
+            color: textColor,
+            onPressed: showOptions,
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: md),
+              child: TextField(
+                controller: messageController,
+                cursorColor: textColor,
+                autocorrect: false,
+                onEditingComplete: submitMessage,
+                style: TextStyle(color: context.colors.onPrimaryContainer),
+                enableInteractiveSelection: false,
+                decoration: InputDecoration(
+                  hintText: "Type a message",
+                  border: InputBorder.none,
+                  hintStyle: TextStyle(color: textColor),
                 ),
               ),
             ),
-            IconButton(
-              icon: const Icon(Icons.send),
-              color: textColor,
-              onPressed: submitMessage,
-            ),
-          ],
-        ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.send),
+            color: textColor,
+            onPressed: submitMessage,
+          ),
+        ],
       ),
     );
   }

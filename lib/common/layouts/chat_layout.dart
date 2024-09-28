@@ -39,7 +39,7 @@ class ChatLayout extends ConsumerWidget {
 
     return Scaffold(
       appBar: ChatAppBar(recipient: recipient),
-      backgroundColor: context.colors.surface,
+      backgroundColor: context.colors.primaryContainer,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(bottom: sm),

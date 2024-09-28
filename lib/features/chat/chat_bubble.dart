@@ -67,6 +67,7 @@ class RecipientBubble extends ConsumerWidget {
             color: color,
             child: MessageContent(
               message: message,
+              isRecipient: true,
               child: Column(
                 children: [
                   if (showRecipientName)
@@ -146,10 +147,16 @@ class UserBubble extends StatelessWidget {
 }
 
 class MessageContent extends StatelessWidget {
-  const MessageContent({super.key, required this.message, this.child});
+  const MessageContent({
+    super.key,
+    required this.message,
+    this.isRecipient = false,
+    this.child,
+  });
 
   final Message message;
   final Widget? child;
+  final bool isRecipient;
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +168,7 @@ class MessageContent extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (child != null) child!,
-            TextMessage(message: message),
+            TextMessage(message: message, isRecipient: isRecipient),
           ],
         ),
       );
@@ -182,7 +189,7 @@ class MessageContent extends StatelessWidget {
           Media(attachment: message.attachment!),
           Padding(
             padding: const EdgeInsets.only(right: sm, left: sm, bottom: xs, top: sm),
-            child: TextMessage(message: message),
+            child: TextMessage(message: message, isRecipient: isRecipient),
           ),
         ],
       ),
@@ -191,15 +198,18 @@ class MessageContent extends StatelessWidget {
 }
 
 class TextMessage extends StatelessWidget {
-  const TextMessage({super.key, required this.message});
+  const TextMessage({super.key, required this.message, this.isRecipient = false});
 
   final Message message;
+  final bool isRecipient;
 
   @override
   Widget build(BuildContext context) {
+    final color = isRecipient ? context.colors.onSurface : context.colors.onPrimary;
+
     return Text(
       message.message,
-      style: context.text.bodyLarge?.apply(color: context.colors.onPrimary),
+      style: context.text.bodyLarge?.apply(color: color),
     );
   }
 }

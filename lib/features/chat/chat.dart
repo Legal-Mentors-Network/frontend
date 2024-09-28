@@ -65,24 +65,27 @@ class MessagesView extends ConsumerWidget {
     final conversation = notifier.getConversation(conversationId);
     final recipient = notifier.getConversationRecipient(conversation, user);
 
-    return Padding(
-      padding: const EdgeInsets.only(top: md, right: md, left: md),
+    return ColoredBox(
+      color: context.colors.surface,
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          ListView.separated(
-            padding: const EdgeInsets.only(bottom: 78),
-            reverse: true,
-            itemBuilder: (context, index) {
-              return ChatBubble(
-                message: messages[messages.length - 1 - index],
-                author: user,
-                recipient: recipient,
-                showRecipientName: false,
-              );
-            },
-            separatorBuilder: (context, index) => const SizedBox(height: md),
-            itemCount: messages.length,
+          Padding(
+            padding: const EdgeInsets.only(top: md, right: md, left: md),
+            child: ListView.separated(
+              padding: const EdgeInsets.only(bottom: 78),
+              reverse: true,
+              itemBuilder: (context, index) {
+                return ChatBubble(
+                  message: messages[messages.length - 1 - index],
+                  author: user,
+                  recipient: recipient,
+                  showRecipientName: false,
+                );
+              },
+              separatorBuilder: (context, index) => const SizedBox(height: md),
+              itemCount: messages.length,
+            ),
           ),
 
           //

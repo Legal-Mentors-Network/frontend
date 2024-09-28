@@ -51,6 +51,7 @@ class Welcome extends ConsumerWidget {
                   child: const Text('Get Started (login)'),
                   onPressed: () {
                     ref.read(auth.notifier).login("mcorleone@mail.com", "Password123");
+                    // ref.read(auth.notifier).login("mrsan@mail.com", "Password123");
                   },
                 ),
 
